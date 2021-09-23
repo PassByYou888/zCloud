@@ -98,10 +98,10 @@ begin
   // 接通调度端,文件服务,用户数据库服务,网络变量服务
   DTC40.DTC40_PhysicsTunnelPool.GetOrCreatePhysicsTunnel(Internet_DP_Addr_, Internet_DP_Port_, 'dp|FS|UserDB|var', TMonitorMySAAS.Create);
 
-  // 循环检查var端是否准备就绪,便于我们触发某些事件
-  DTC40.DTC40_ClientPool.WaitConnectedDoneP('var', 0, procedure(Client_: TDTC40_Custom_Client)
+  // 循环检查指定端是否准备就绪,便于我们触发某些事件
+  DTC40.DTC40_ClientPool.WaitConnectedDoneP('dp|fs|UserDB|var', procedure(States_: TDTC40_Custom_ClientPool_Wait_States)
     begin
-      DoStatus('网络变量服务已经准备就绪....我们来干点什么吧.');
+      DoStatus('所有的依赖服务已经准备就绪....我们来干点什么吧.');
     end);
 
   // 主循环

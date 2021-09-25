@@ -49,6 +49,12 @@ begin
       // p2pVM并发隧道传输文件，如果两个同名文件同时并行传输，服务器会依据IO触发完成传输的先后顺序擦写操作，网速慢的覆盖网速快的
       GetMyFS_Client.FS_PostFile_P('test', tmp, True, procedure(Sender: TDTC40_FS_Client; Token: U_String)
         begin
+          GetMyFS_Client.FS_GetFileMD5P('test',
+            procedure(Sender: TDTC40_FS_Client; State_: Boolean; info_: SystemString)
+            begin
+              if State_ then
+                  DoStatus('成功获取远程md5: %s', [info_]);
+            end);
           // 当post完成后，我们将文件get下来，get文件也会构建新的p2pVM隧道并发传输，不会发生排队等
           GetMyFS_Client.FS_GetFile_P('test', False,
             procedure(Sender: TDTC40_FS_Client; stream: TMS64; Token: U_String; Successed: Boolean)
@@ -66,4 +72,5 @@ begin
       DTC40.C40Progress;
       TCompute.Sleep(1);
     end;
+
 end.

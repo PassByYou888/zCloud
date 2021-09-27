@@ -44,7 +44,7 @@ begin
       tmp.Size := 1024 * 1024;
       MT19937Rand32(MaxInt, tmp.Memory, tmp.Size div 4);
       DoStatus('origin md5: ' + umlStreamMD5String(tmp));
-      // 往服务器仍文件，这个文件的token会自动覆盖已有的，覆盖都在存储空间使用擦写机制处理
+      // 往服务器仍文件，这个文件的token会自动覆盖已有的，覆盖在存储空间使用擦写机制处理
       // postfile的api，会构建一个新的p2pVM隧道，永不排队
       // p2pVM并发隧道传输文件，如果两个同名文件同时并行传输，服务器会依据IO触发完成传输的先后顺序擦写操作，网速慢的覆盖网速快的
       GetMyFS_Client.FS_PostFile_P('test', tmp, True, procedure(Sender: TDTC40_FS_Client; Token: U_String)

@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{080EE316-1298-40F8-A06F-8B2B80AF341E}</ProjectGuid>
+        <ProjectGuid>{368C3C7A-9245-48B7-982E-9D94E8EC2818}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <MainSource>_1_UserDB_serv.dpr</MainSource>

@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{80AEEE95-15AF-41C7-84FE-02C8DEB4E344}</ProjectGuid>
+        <ProjectGuid>{9F30DA6E-EC0B-4EA7-9685-159B5BB6DEF5}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <MainSource>_2_Auth_Client.dpr</MainSource>

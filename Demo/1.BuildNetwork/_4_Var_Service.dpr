@@ -21,12 +21,12 @@ uses
 const
   // 调度服务器端口公网地址,可以是ipv4,ipv6,dns
   // 公共地址,不能给127.0.0.1这类
-  Internet_DP_Addr_ = '192.168.2.79';
+  Internet_DP_Addr_ = '127.0.0.1';
   // 调度服务器端口
   Internet_DP_Port_ = 8387;
 
   // 本地服务器公网地址
-  Internet_LocalService_Addr_ = '192.168.2.79';
+  Internet_LocalService_Addr_ = '127.0.0.1';
   Internet_LocalService_Port_ = 8384;
 
 var

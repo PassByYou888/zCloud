@@ -1,4 +1,4 @@
-program _2_Auth_Client;
+program _3_Auth_Client;
 
 {$APPTYPE CONSOLE}
 
@@ -35,7 +35,7 @@ begin
 
   // VirtualAuth的验证机制：进入网络以后不创建双通道，而是等待执行验证机制，一旦通过验证，则建立双通道链接并启动自动网络
   // 当启动自动网络后，断线重连将会自动化通过身份验证登录
-  DTC40.DTC40_PhysicsTunnelPool.GetOrCreatePhysicsTunnel(Internet_DP_Addr_, Internet_DP_Port_, 'MyVA', nil);
+  DTC40.DTC40_PhysicsTunnelPool.GetOrCreatePhysicsTunnel(Internet_DP_Addr_, Internet_DP_Port_, 'DP|MyVA', nil);
 
   // WaitConnectedDone可以同时检查多个依赖服务是否就绪
   DTC40.DTC40_ClientPool.WaitConnectedDoneP('MyVA', procedure(States_: TDTC40_Custom_ClientPool_Wait_States)

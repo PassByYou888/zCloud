@@ -19,7 +19,7 @@ uses
 const
   // 调度服务器端口公网地址,可以是ipv4,ipv6,dns
   // 公共地址,不能给127.0.0.1这类
-  Internet_DP_Addr_ = '192.168.2.79';
+  Internet_DP_Addr_ = '127.0.0.1';
   // 调度服务器端口
   Internet_DP_Port_ = 8387;
 

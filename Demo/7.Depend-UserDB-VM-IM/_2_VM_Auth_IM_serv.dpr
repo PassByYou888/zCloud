@@ -35,9 +35,6 @@ begin
   Result := TDTC40_UserDB_Client(DTC40_ClientPool.ExistsConnectedServiceTyp('UserDB'));
 end;
 
-{$REGION '自定义验证与消息服务'}
-
-
 type
   TMyVA_Service = class(TDTC40_Base_VirtualAuth_Service)
   private type

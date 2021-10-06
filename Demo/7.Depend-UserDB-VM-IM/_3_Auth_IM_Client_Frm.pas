@@ -557,6 +557,6 @@ end;
 
 initialization
 
-RegisterC40('MyVA', TDTC40_Base_VirtualAuth_Service, TMyVA_Client);
+RegisterC40('MyVA', nil, TMyVA_Client);
 
 end.

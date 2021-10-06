@@ -9,7 +9,7 @@ uses
   CoreClasses, PascalStrings, DoStatusIO, UnicodeMixedLib, ListEngine,
   Geometry2DUnit, DataFrameEngine, ZJson, NumberBase,
   NotifyObjectBase, CoreCipher, MemoryStream64,
-  CommunicationFramework, PhysicsIO, DTC40, DTC40_Var, DTC40_FS, DTC40_UserDB;
+  CommunicationFramework, PhysicsIO, DTC40, DTC40_Var;
 
 type
   TC4_VAR_Tech_Demo_Serv_Form = class(TForm)

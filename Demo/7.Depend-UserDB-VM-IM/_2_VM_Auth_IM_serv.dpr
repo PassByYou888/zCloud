@@ -142,7 +142,7 @@ begin
       // 完成下载用户注册时的自定义信息
       IO_Def := TMyVA_RecvIO_Define(AuthIO.UserDefineIO);
       IO_Def.MyCustomData.Assign(Json_);
-      IO_Def.MyCustomData_MD5 := IO_Def.MyCustomData.GetMD5;
+      IO_Def.MyCustomData_MD5 := IO_Def.MyCustomData.MD5;
 
       // 通过Usr_Open启动用户在UserDB服务端的在线状态，必须Open以IM子系统才能工作
       Sender.Usr_Open(AuthIO.UserID);
@@ -211,7 +211,7 @@ begin
   if IO_Def.LoginSuccessed then
     begin
       // 如果发现MyCustom数据有更改，传给UserDB服务
-      if not umlCompareMD5(IO_Def.MyCustomData_MD5, IO_Def.MyCustomData.GetMD5) then
+      if not umlCompareMD5(IO_Def.MyCustomData_MD5, IO_Def.MyCustomData.MD5) then
           Get_UserDB_Client.Usr_Set(IO_Def.UserPrimaryIdentifier, 'Custom', IO_Def.MyCustomData);
 
       // 当C端用户断线（这里的断线是指一号多登录全断开），告诉userDB服务，别再给我和他有关的消息
@@ -266,7 +266,7 @@ begin
   if not IO_Def.LoginSuccessed then
       exit;
   IO_Def.MyCustomData.S['Alias'] := InData.R.ReadString;
-  IO_Def.MyCustomData_MD5 := IO_Def.MyCustomData.GetMD5;
+  IO_Def.MyCustomData_MD5 := IO_Def.MyCustomData.MD5;
   Get_UserDB_Client.Usr_Set(IO_Def.UserPrimaryIdentifier, 'Custom', IO_Def.MyCustomData);
 end;
 
@@ -543,7 +543,7 @@ end;
 
 begin
   // 注册MyVA
-  RegisterC40('MyVA', TMyVA_Service, TDTC40_Base_VirtualAuth_Client);
+  RegisterC40('MyVA', TMyVA_Service, nil);
 
   // 打开Log信息
   DTC40.DTC40_QuietMode := False;

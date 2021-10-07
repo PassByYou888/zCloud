@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{AF24A144-6479-4687-A5ED-1A5B5955A254}</ProjectGuid>
+        <ProjectGuid>{61F3AA96-0D1C-4143-B3CB-20A59B626C77}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <MainSource>_2_FS_Client.dpr</MainSource>

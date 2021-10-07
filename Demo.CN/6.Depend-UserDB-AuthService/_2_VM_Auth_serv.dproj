@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{311D9752-4A8C-495E-AEDE-43DB1D3392DD}</ProjectGuid>
+        <ProjectGuid>{84441C15-D2BE-4316-920C-DBF7D085BD32}</ProjectGuid>
         <ProjectVersion>19.2</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <MainSource>_2_VM_Auth_serv.dpr</MainSource>

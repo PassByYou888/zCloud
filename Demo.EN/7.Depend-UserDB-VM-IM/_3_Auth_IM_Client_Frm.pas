@@ -1,4 +1,4 @@
-unit _3_Auth_IM_Client_Frm;
+锘縰nit _3_Auth_IM_Client_Frm;
 
 interface
 
@@ -18,7 +18,7 @@ uses
   DTC40;
 
 type
-  // 搞定后台VM以后，做客户端非常简单，几个api封装一下就行了
+  { After completing the background VM, it is very simple to be a client. Just encapsulate a few APIs }
   TMyVA_Client = class(TDTC40_Base_VirtualAuth_Client)
   private type
     TON_Usr_NewLoginNameC = procedure(sender: TMyVA_Client; State_: Boolean; info_: SystemString);
@@ -237,22 +237,22 @@ end;
 
 procedure TMyVA_Client.cmd_userMsg(sender: TPeerIO; InData: SystemString);
 begin
-  _3_Auth_IM_Client_Form.msgMemo.Lines.Add(PFormat('%s %s', [DateTimeToStr(now), InData]));
+  _3_Auth_IM_Client_Form.msgMemo.Lines.Add(PFormat('%s', [InData]));
 end;
 
 procedure TMyVA_Client.cmd_userOnline(sender: TPeerIO; InData: SystemString);
 begin
-  _3_Auth_IM_Client_Form.OnlineMemo.Lines.Add(PFormat('好友上线消息 %s', [InData]));
+  _3_Auth_IM_Client_Form.OnlineMemo.Lines.Add(PFormat('Friends online message %s', [InData]));
 end;
 
 procedure TMyVA_Client.cmd_userOffline(sender: TPeerIO; InData: SystemString);
 begin
-  _3_Auth_IM_Client_Form.OnlineMemo.Lines.Add(PFormat('好友离线消息 %s', [InData]));
+  _3_Auth_IM_Client_Form.OnlineMemo.Lines.Add(PFormat('Friend offline message %s', [InData]));
 end;
 
 procedure TMyVA_Client.cmd_userRequestFriend(sender: TPeerIO; InData: SystemString);
 begin
-  _3_Auth_IM_Client_Form.RequestFriendMemo.Lines.Add(PFormat('请求加为好友 %s', [InData]));
+  _3_Auth_IM_Client_Form.RequestFriendMemo.Lines.Add(PFormat('Request to friend %s', [InData]));
 end;
 
 constructor TMyVA_Client.Create(source_: TDTC40_Info; Param_: U_String);
@@ -499,10 +499,10 @@ begin
       cli := Custom_Client_ as TMyVA_Client;
       if not cli.NoDTLink then
         begin
-          // 登录成功，关闭登录窗口，注册窗口
+          { Login succeeded. Close the login window and the registration window }
           _3_Auth_IM_Client_LoginForm.Close;
           _3_Auth_IM_Client_RegForm.Close;
-          LoginInfoLabel.Caption := PFormat('登录信息: %s', [cli.UserName.Text]);
+          LoginInfoLabel.Caption := PFormat('Login information: %s', [cli.UserName.Text]);
         end;
     end;
 end;

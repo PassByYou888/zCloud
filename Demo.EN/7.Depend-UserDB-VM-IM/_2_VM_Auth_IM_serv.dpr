@@ -438,6 +438,7 @@ type
     procedure Do_User_Open(Sender: TDTC40_UserDB_Client; UserName_, ToUserName_: U_String);
     procedure Do_User_Close(Sender: TDTC40_UserDB_Client; UserName_, ToUserName_: U_String);
     procedure Do_User_Request_Friend(Sender: TDTC40_UserDB_Client; FromUserName_, DestFriendUserName_, msg_: U_String);
+    procedure Do_User_Kick(sender: TDTC40_UserDB_Client; UserName_: U_String);
   public
   end;
 
@@ -460,7 +461,6 @@ procedure TMyClientIntf.DTC40_PhysicsTunnel_Client_Connected(Sender: TDTC40_Phys
 begin
 end;
 
-{ Im event interface }
 procedure TMyClientIntf.Do_User_Msg(Sender: TDTC40_UserDB_Client; FromUserName_, ToUserName_, msg_: U_String);
 var
   arry: TDTC40_Custom_Service_Array;
@@ -537,6 +537,24 @@ begin
       L := S.Search_IO_Def_From_UserPrimaryIdentifier(DestFriendUserName_);
       for j := 0 to L.Count - 1 do
           L[j].SendTunnel.Owner.SendDirectConsoleCmd('userRequestFriend', Format('%s requests to add you as a friend', [FromUserName_.Text, msg_.Text]));
+      L.Free;
+    end;
+end;
+
+procedure TMyClientIntf.Do_User_Kick(sender: TDTC40_UserDB_Client; UserName_: U_String);
+var
+  arry: TDTC40_Custom_Service_Array;
+  i, j: integer;
+  S: TMyVA_Service;
+  L: TMyVA_Service.TMyVA_RecvIO_Define_List;
+begin
+  arry := DTC40.DTC40_ServicePool.GetFromServiceTyp('MyVA');
+  for i := 0 to length(arry) - 1 do
+    begin
+      S := TMyVA_Service(arry[i]);
+      L := S.Search_IO_Def_From_UserPrimaryIdentifier(UserName_);
+      for j := 0 to L.Count - 1 do
+          L[j].Owner.p2pVM.PhysicsIO.DelayClose;
       L.Free;
     end;
 end;

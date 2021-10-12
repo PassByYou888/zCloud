@@ -3,7 +3,7 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
   Top = 0
   Caption = 'C4_VAR_Tech_Demo_Cli_Form'
   ClientHeight = 550
-  ClientWidth = 1335
+  ClientWidth = 1360
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
   object botSplitter: TSplitter
     Left = 0
     Top = 408
-    Width = 1335
+    Width = 1360
     Height = 3
     Cursor = crVSplit
     Align = alBottom
@@ -29,11 +29,12 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
   object topPanel: TPanel
     Left = 0
     Top = 0
-    Width = 1335
+    Width = 1360
     Height = 49
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 1335
     object AddrEdit: TLabeledEdit
       Left = 24
       Top = 24
@@ -80,21 +81,23 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
   object Memo: TMemo
     Left = 0
     Top = 411
-    Width = 1335
+    Width = 1360
     Height = 139
     Align = alBottom
     ScrollBars = ssVertical
     TabOrder = 1
     WordWrap = False
+    ExplicitWidth = 1335
   end
   object cliPanel: TPanel
     Left = 0
     Top = 49
-    Width = 1335
+    Width = 1360
     Height = 359
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 1335
     object LSplitter: TSplitter
       Left = 249
       Top = 0
@@ -125,17 +128,16 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
     object RPanel: TPanel
       Left = 252
       Top = 0
-      Width = 1083
+      Width = 1108
       Height = 359
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 228
-      ExplicitTop = -3
+      ExplicitWidth = 1083
       object ScriptMemo: TMemo
         Left = 0
         Top = 34
-        Width = 1083
+        Width = 1108
         Height = 325
         Align = alClient
         Lines.Strings = (
@@ -156,16 +158,18 @@ object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
           'Set('#39'E'#39', '#39'hello world,'#39')'
           '')
         TabOrder = 0
+        ExplicitWidth = 1083
       end
       object LTPanel: TPanel
         Left = 0
         Top = 0
-        Width = 1083
+        Width = 1108
         Height = 34
         Align = alTop
         BevelKind = bkSoft
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitWidth = 1083
         object InitLocalNMFromScriptButton: TButton
           Left = 110
           Top = 4

@@ -53,7 +53,7 @@ begin
         end);
 
       Get_Log_DB_Client.QueryLogP('test_log_db_1', IncHour(now, -1), IncHour(now, 1),
-        procedure(Sender: TDTC40_Log_DB_Client; arry: TArrayLogData)
+        procedure(Sender: TDTC40_Log_DB_Client; var arry: TArrayLogData)
         var
           i: integer;
         begin

@@ -1,4 +1,4 @@
-object _3_Auth_IM_Client_RequestAddFriendForm: T_3_Auth_IM_Client_RequestAddFriendForm
+﻿object _3_Auth_IM_Client_RequestAddFriendForm: T_3_Auth_IM_Client_RequestAddFriendForm
   Left = 0
   Top = 0
   AutoSize = True

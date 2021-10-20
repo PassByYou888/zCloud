@@ -1,4 +1,4 @@
-object _3_Auth_IM_Client_SendMsgForm: T_3_Auth_IM_Client_SendMsgForm
+﻿object _3_Auth_IM_Client_SendMsgForm: T_3_Auth_IM_Client_SendMsgForm
   Left = 0
   Top = 0
   AutoSize = True

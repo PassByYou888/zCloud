@@ -1,4 +1,4 @@
-object _3_Auth_IM_Client_Form: T_3_Auth_IM_Client_Form
+﻿object _3_Auth_IM_Client_Form: T_3_Auth_IM_Client_Form
   Left = 0
   Top = 0
   BorderStyle = bsDialog

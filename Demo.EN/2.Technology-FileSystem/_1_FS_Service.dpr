@@ -6,7 +6,8 @@
 
 
 uses
-  System.SysUtils,
+  SysUtils,
+  Windows,
   CoreClasses,
   PascalStrings,
   UnicodeMixedLib,
@@ -33,7 +34,25 @@ begin
       Result := nil;
 end;
 
+procedure Wait_C40Clean_Done;
 begin
+  DTC40.C40Clean;
+end;
+
+function ConsoleProc(CtrlType: DWORD): Bool; stdcall;
+begin
+  case CtrlType of
+    CTRL_C_EVENT, CTRL_BREAK_EVENT, CTRL_CLOSE_EVENT, CTRL_LOGOFF_EVENT, CTRL_SHUTDOWN_EVENT:
+      begin
+        TCompute.SyncC(Wait_C40Clean_Done);
+      end;
+  end;
+  Result := True;
+end;
+
+begin
+  SetConsoleCtrlHandler(@ConsoleProc, True);
+
   { Open log information }
   DTC40.DTC40_QuietMode := False;
 

@@ -1,4 +1,4 @@
-object _3_Auth_IM_Client_RemoveFriendForm: T_3_Auth_IM_Client_RemoveFriendForm
+﻿object _3_Auth_IM_Client_RemoveFriendForm: T_3_Auth_IM_Client_RemoveFriendForm
   Left = 0
   Top = 0
   AutoSize = True

@@ -177,6 +177,7 @@ object C40AppTempletForm: TC40AppTempletForm
           HideSelection = False
           ReadOnly = True
           RowSelect = True
+          ScrollBars = ssAutoVertical
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = RependNetListViewChange
@@ -290,6 +291,7 @@ object C40AppTempletForm: TC40AppTempletForm
           HideSelection = False
           ReadOnly = True
           RowSelect = True
+          ScrollBars = ssAutoVertical
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = ServiceListViewChange

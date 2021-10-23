@@ -96,13 +96,11 @@ type
     procedure DependEditChange(Sender: TObject);
     procedure DependEditExit(Sender: TObject);
     procedure RependNetListViewChange(Sender: TObject; Item: TListItem; Change: TItemChange);
-    procedure RependNetListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
     procedure BuildDependNetButtonClick(Sender: TObject);
     procedure resetDependButtonClick(Sender: TObject);
     procedure ServiceDependEditChange(Sender: TObject);
     procedure ServiceDependEditExit(Sender: TObject);
     procedure ServiceListViewChange(Sender: TObject; Item: TListItem; Change: TItemChange);
-    procedure ServiceListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
     procedure ServBuildNetButtonClick(Sender: TObject);
     procedure ServiceResetButtonClick(Sender: TObject);
     procedure ApplyOptButtonClick(Sender: TObject);
@@ -317,11 +315,6 @@ begin
   DependEdit.OnChange := @DependEditChange;
 end;
 
-procedure TC40AppTempletForm.RependNetListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
-begin
-  AllowChange := not IsCommandLineWorkEnvir;
-end;
-
 procedure TC40AppTempletForm.BuildDependNetButtonClick(Sender: TObject);
 begin
   DTC40.DTC40_PhysicsTunnelPool.GetOrCreatePhysicsTunnel(JoinHostEdit.Text, EStrToInt(JoinPortEdit.Text, 0), DependEdit.Text, On_DTC40_PhysicsTunnel_Event);
@@ -368,11 +361,6 @@ begin
   ServiceDependEdit.OnChange := nil;
   ServiceDependEdit.Text := RebuildServiceInfo(ServiceDependEdit.Text);
   ServiceDependEdit.OnChange := @ServiceDependEditChange;
-end;
-
-procedure TC40AppTempletForm.ServiceListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
-begin
-  AllowChange := not IsCommandLineWorkEnvir;
 end;
 
 procedure TC40AppTempletForm.ServBuildNetButtonClick(Sender: TObject);

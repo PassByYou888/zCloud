@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/10/22 03:29:38.000.435,E:\developer\git\zCloud\Delphi-C40ServiceTemplet\C40ServTempletFrm.pas=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/10/22 03:29:38.000.435,E:\developer\git\zCloud\Delphi-C40ServiceTemplet\C40ServTempletFrm.dfm=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/10/22 03:29:40.000.413,E:\developer\git\zCloud\Delphi-C40ServiceTemplet\C40ServTemplet.dproj=C:\Users\Administrator\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/10/22 14:07:36.000.346,E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40ServTemplet.dproj=E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40AppTemplet.dproj</Transaction>
+    <Transaction>2021/10/22 14:07:47.000.391,E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40ServTempletFrm.pas=E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40AppTempletFrm.pas</Transaction>
+    <Transaction>2021/10/22 14:07:47.000.391,E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40ServTempletFrm.dfm=E:\developer\git\zCloud\Delphi-Win-C4AppTemplet\C40AppTempletFrm.dfm</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<P192.168.2.89 iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>

@@ -95,7 +95,7 @@ object C40AppTempletForm: TC40AppTempletForm
             Left = 56
             Height = 21
             Top = 6
-            Width = 112
+            Width = 136
             EditLabel.Height = 13
             EditLabel.Width = 44
             EditLabel.Caption = 'Join Host'
@@ -104,10 +104,10 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 0
           end
           object JoinPortEdit: TLabeledEdit
-            Left = 208
+            Left = 224
             Height = 21
             Top = 6
-            Width = 152
+            Width = 48
             EditLabel.Height = 13
             EditLabel.Width = 20
             EditLabel.Caption = 'Port'
@@ -136,10 +136,10 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 4
           end
           object DependEdit: TLabeledEdit
-            Left = 408
+            Left = 320
             Height = 21
             Top = 6
-            Width = 291
+            Width = 379
             Anchors = [akTop, akLeft, akRight]
             EditLabel.Height = 13
             EditLabel.Width = 37

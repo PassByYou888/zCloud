@@ -3,7 +3,7 @@ program C40AppTemplet;
 {$mode objfpc}{$H+}
 
 uses
-  jemalloc4p,
+  jemalloc4p, { https://github.com/PassByYou888/jemalloc4p }
   {$IFNDEF MSWINDOWS}
   cthreads,
   {$ENDIF MSWINDOWS}
@@ -13,17 +13,8 @@ uses
 
 {$R *.res}
 
-procedure InitC40AppParamFromCmd;
-var
-  i: integer;
 begin
-  SetLength(C40AppParam, ParamCount);
-  for i := 1 to ParamCount do
-      C40AppParam[i - 1] := ParamStr(i);
-end;
-
-begin
-  InitC40AppParamFromCmd;
+  InitC40AppParamFromSystemCmdLine;
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;

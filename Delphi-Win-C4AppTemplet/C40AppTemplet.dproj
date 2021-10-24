@@ -103,7 +103,6 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_RunParams>&quot;Title(&apos;test-title&apos;),AppTitle(&apos;app-title&apos;),Password(&apos;DTC40@ZSERVER&apos;),Service(&apos;192.168.2.79&apos;,3343,&apos;DP|NA|DNA|VA|DVA|D|DD|UserDB|Var|FS|RandSeed|Log&apos;),Tunnel(&apos;192.168.2.79&apos;,3343,&apos;DP|NA|DNA|VA|DVA|D|DD|UserDB|Var|FS|RandSeed|Log&apos;)&quot;</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>

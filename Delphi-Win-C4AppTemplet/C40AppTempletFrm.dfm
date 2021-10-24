@@ -45,7 +45,6 @@ object C40AppTempletForm: TC40AppTempletForm
     ScrollBars = ssVertical
     TabOrder = 0
     WordWrap = False
-    ExplicitTop = 330
   end
   object PGControl: TPageControl
     Left = 0
@@ -84,19 +83,18 @@ object C40AppTempletForm: TC40AppTempletForm
           Left = 0
           Top = 0
           Width = 676
-          Height = 25
+          Height = 32
           Align = alTop
-          AutoSize = True
           BevelOuter = bvNone
           DoubleBuffered = True
           ParentDoubleBuffered = False
           TabOrder = 0
           DesignSize = (
             676
-            25)
+            32)
           object JoinHostEdit: TLabeledEdit
             Left = 56
-            Top = 2
+            Top = 5
             Width = 105
             Height = 21
             EditLabel.Width = 44
@@ -107,7 +105,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object JoinPortEdit: TLabeledEdit
             Left = 190
-            Top = 2
+            Top = 5
             Width = 49
             Height = 21
             EditLabel.Width = 20
@@ -118,7 +116,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object BuildDependNetButton: TButton
             Left = 550
-            Top = 0
+            Top = 3
             Width = 76
             Height = 25
             Anchors = [akTop, akRight]
@@ -128,7 +126,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object resetDependButton: TButton
             Left = 632
-            Top = 0
+            Top = 3
             Width = 42
             Height = 25
             Anchors = [akTop, akRight]
@@ -138,7 +136,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object DependEdit: TLabeledEdit
             Left = 293
-            Top = 2
+            Top = 5
             Width = 251
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -153,9 +151,9 @@ object C40AppTempletForm: TC40AppTempletForm
         end
         object RependNetListView: TListView
           Left = 0
-          Top = 25
+          Top = 32
           Width = 676
-          Height = 122
+          Height = 115
           Align = alClient
           BevelInner = bvNone
           BevelOuter = bvNone
@@ -181,8 +179,6 @@ object C40AppTempletForm: TC40AppTempletForm
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = RependNetListViewChange
-          OnChanging = RependNetListViewChanging
-          ExplicitTop = 27
         end
       end
       object servicePanel: TPanel
@@ -197,33 +193,29 @@ object C40AppTempletForm: TC40AppTempletForm
           Left = 0
           Top = 0
           Width = 676
-          Height = 25
+          Height = 30
           Align = alTop
-          AutoSize = True
           BevelOuter = bvNone
           DoubleBuffered = True
           ParentDoubleBuffered = False
           TabOrder = 0
           DesignSize = (
             676
-            25)
-          object Label1: TLabel
-            Left = 10
-            Top = 8
-            Width = 62
-            Height = 13
-            Caption = 'Listening  IP:'
-          end
-          object ServIPComboBox: TComboBox
+            30)
+          object ServIPEdit: TLabeledEdit
             Left = 78
-            Top = 2
+            Top = 5
             Width = 161
             Height = 21
+            EditLabel.Width = 62
+            EditLabel.Height = 13
+            EditLabel.Caption = 'Listening  IP:'
+            LabelPosition = lpLeft
             TabOrder = 0
           end
           object ServPortEdit: TLabeledEdit
             Left = 270
-            Top = 2
+            Top = 5
             Width = 49
             Height = 21
             EditLabel.Width = 20
@@ -234,7 +226,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object ServiceDependEdit: TLabeledEdit
             Left = 405
-            Top = 2
+            Top = 5
             Width = 139
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -248,7 +240,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object ServBuildNetButton: TButton
             Left = 550
-            Top = 0
+            Top = 3
             Width = 78
             Height = 25
             Anchors = [akTop, akRight]
@@ -258,7 +250,7 @@ object C40AppTempletForm: TC40AppTempletForm
           end
           object ServiceResetButton: TButton
             Left = 632
-            Top = 0
+            Top = 3
             Width = 42
             Height = 25
             Anchors = [akTop, akRight]
@@ -269,9 +261,9 @@ object C40AppTempletForm: TC40AppTempletForm
         end
         object ServiceListView: TListView
           Left = 0
-          Top = 25
+          Top = 30
           Width = 676
-          Height = 116
+          Height = 111
           Align = alClient
           BevelInner = bvNone
           BevelOuter = bvNone
@@ -297,8 +289,6 @@ object C40AppTempletForm: TC40AppTempletForm
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = ServiceListViewChange
-          OnChanging = ServiceListViewChanging
-          ExplicitTop = 23
         end
       end
     end
@@ -533,7 +523,7 @@ object C40AppTempletForm: TC40AppTempletForm
         BorderStyle = bsNone
         DoubleBuffered = True
         HideSelection = False
-        Indent = 19
+        Indent = 25
         ParentDoubleBuffered = False
         ReadOnly = True
         RightClickSelect = True
@@ -549,29 +539,29 @@ object C40AppTempletForm: TC40AppTempletForm
         676
         296)
       object cmdLineParamEdit: TLabeledEdit
-        Left = 98
-        Top = 26
+        Left = 96
+        Top = 19
         Width = 547
         Height = 21
         Anchors = [akLeft, akTop, akRight]
-        EditLabel.Width = 54
+        EditLabel.Width = 79
         EditLabel.Height = 13
-        EditLabel.Caption = 'parameter:'
+        EditLabel.Caption = 'boot parameter:'
         LabelPosition = lpLeft
         TabOrder = 0
       end
       object GenerateCmdLineButton: TButton
-        Left = 98
-        Top = 80
+        Left = 96
+        Top = 100
         Width = 85
         Height = 25
         Caption = 'Generate'
-        TabOrder = 3
+        TabOrder = 4
         OnClick = GenerateCmdLineButtonClick
       end
       object cmdLineTitleEdit: TLabeledEdit
-        Left = 98
-        Top = 53
+        Left = 96
+        Top = 46
         Width = 108
         Height = 21
         EditLabel.Width = 24
@@ -581,8 +571,8 @@ object C40AppTempletForm: TC40AppTempletForm
         TabOrder = 1
       end
       object cmdLineAppTitleEdit: TLabeledEdit
-        Left = 265
-        Top = 53
+        Left = 263
+        Top = 46
         Width = 108
         Height = 21
         EditLabel.Width = 46
@@ -591,10 +581,20 @@ object C40AppTempletForm: TC40AppTempletForm
         LabelPosition = lpLeft
         TabOrder = 2
       end
+      object cmdLineDisableUICheckBox: TCheckBox
+        Left = 97
+        Top = 75
+        Width = 97
+        Height = 17
+        Caption = 'Disable UI'
+        Checked = True
+        State = cbChecked
+        TabOrder = 3
+      end
     end
   end
   object netTimer: TTimer
-    Interval = 10
+    Interval = 100
     OnTimer = netTimerTimer
     Left = 50
     Top = 344

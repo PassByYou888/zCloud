@@ -9,8 +9,6 @@ uses
   Vcl.FileCtrl,
   System.IOUtils, System.DateUtils, System.TypInfo,
 
-  OverbyteIcsWSocket, OverbyteIcsWinsock,
-
   CoreClasses, PascalStrings, UnicodeMixedLib, DoStatusIO,
   ListEngine, GHashList, zExpression, OpCode, TextParsing, DataFrameEngine, TextDataEngine,
   ZJson, Geometry2DUnit, Geometry3DUnit, NumberBase,
@@ -48,8 +46,7 @@ type
     servicePanel: TPanel;
     net_Top_Splitter: TSplitter;
     ServiceToolPanel: TPanel;
-    Label1: TLabel;
-    ServIPComboBox: TComboBox;
+    ServIPEdit: TLabeledEdit;
     ServPortEdit: TLabeledEdit;
     ServiceDependEdit: TLabeledEdit;
     ServBuildNetButton: TButton;
@@ -83,19 +80,18 @@ type
     GenerateCmdLineButton: TButton;
     cmdLineTitleEdit: TLabeledEdit;
     cmdLineAppTitleEdit: TLabeledEdit;
+    cmdLineDisableUICheckBox: TCheckBox;
     procedure netTimerTimer(Sender: TObject);
     procedure UpdateStateTimerTimer(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure DependEditChange(Sender: TObject);
     procedure DependEditExit(Sender: TObject);
     procedure RependNetListViewChange(Sender: TObject; Item: TListItem; Change: TItemChange);
-    procedure RependNetListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
     procedure BuildDependNetButtonClick(Sender: TObject);
     procedure resetDependButtonClick(Sender: TObject);
     procedure ServiceDependEditChange(Sender: TObject);
     procedure ServiceDependEditExit(Sender: TObject);
     procedure ServiceListViewChange(Sender: TObject; Item: TListItem; Change: TItemChange);
-    procedure ServiceListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
     procedure ServBuildNetButtonClick(Sender: TObject);
     procedure ServiceResetButtonClick(Sender: TObject);
     procedure SelRootDirButtonClick(Sender: TObject);
@@ -134,14 +130,32 @@ var
   On_DTC40_PhysicsTunnel_Event: IDTC40_PhysicsTunnel_Event = nil;
   On_DTC40_PhysicsService_Event: IDTC40_PhysicsService_Event = nil;
 
+procedure InitC40AppParamFromSystemCmdLine;
+
 implementation
 
 {$R *.dfm}
 
+procedure InitC40AppParamFromSystemCmdLine;
+var
+  i: integer;
+begin
+  SetLength(C40AppParam, ParamCount);
+  for i := 1 to ParamCount do
+      C40AppParam[i - 1] := ParamStr(i);
+end;
+
 
 type
-  // app.exe "Quiet(False),SafeCheckTime(SafeCheckTime+999),serv('127.0.0.1', 28989, 'DP|NA'),Tunnel('127.0.0.1', 28989, 'DP')"
-  TCommand_Struct = class
+  TCmd_Net_Info_ = record
+    ip: string;
+    port: Word;
+    depend: string;
+  end;
+
+  TCmd_Net_Info_List = {$IFDEF FPC}specialize {$ENDIF FPC} TGenericsList<TCmd_Net_Info_>;
+
+  TCommand_Script = class
   private
     function Do_Config(var OP_Param: TOpParam): Variant;
     function Do_Client(var OP_Param: TOpParam): Variant;
@@ -150,18 +164,15 @@ type
     opRT: TOpCustomRunTime;
     Config: THashStringList;
     ConfigIsUpdate: Boolean;
-    client_ip: string;
-    client_port: Word;
-    client_depend: string;
-    service_ip: string;
-    service_port: Word;
-    service_depend: string;
+    Client_NetInfo_List: TCmd_Net_Info_List;
+    Service_NetInfo_List: TCmd_Net_Info_List;
     constructor Create;
     destructor Destroy; override;
+    procedure RegApi;
     procedure Parsing(expression: U_String);
   end;
 
-function TCommand_Struct.Do_Config(var OP_Param: TOpParam): Variant;
+function TCommand_Script.Do_Config(var OP_Param: TOpParam): Variant;
 begin
   if length(OP_Param) > 0 then
     begin
@@ -173,38 +184,54 @@ begin
       Result := Config[opRT.Trigger^.Name];
 end;
 
-function TCommand_Struct.Do_Client(var OP_Param: TOpParam): Variant;
-begin
-  client_ip := OP_Param[0];
-  client_port := OP_Param[1];
-  client_depend := OP_Param[2];
-  Result := True;
-end;
-
-function TCommand_Struct.Do_Service(var OP_Param: TOpParam): Variant;
-begin
-  service_ip := OP_Param[0];
-  service_port := OP_Param[1];
-  service_depend := OP_Param[2];
-  Result := True;
-end;
-
-constructor TCommand_Struct.Create;
+function TCommand_Script.Do_Client(var OP_Param: TOpParam): Variant;
 var
-  L: TListPascalString;
-  i: Integer;
+  net_info_: TCmd_Net_Info_;
+begin
+  net_info_.ip := OP_Param[0];
+  net_info_.port := OP_Param[1];
+  net_info_.depend := OP_Param[2];
+  Client_NetInfo_List.Add(net_info_);
+  Result := True;
+end;
+
+function TCommand_Script.Do_Service(var OP_Param: TOpParam): Variant;
+var
+  net_info_: TCmd_Net_Info_;
+begin
+  net_info_.ip := OP_Param[0];
+  net_info_.port := OP_Param[1];
+  net_info_.depend := OP_Param[2];
+  Service_NetInfo_List.Add(net_info_);
+  Result := True;
+end;
+
+constructor TCommand_Script.Create;
 begin
   inherited Create;
   opRT := TOpCustomRunTime.Create;
 
   Config := THashStringList.Create;
-  DTC40.C40WriteConfig(Config);
-  Config.SetDefaultValue('Root', DTC40.DTC40_RootPath);
-  Config.SetDefaultValue('Password', DTC40.DTC40_Password);
-  Config.SetDefaultValue('Title', C40AppTempletForm.Caption);
-  Config.SetDefaultValue('AppTitle', Application.Title);
   ConfigIsUpdate := False;
 
+  Client_NetInfo_List := TCmd_Net_Info_List.Create;
+  Service_NetInfo_List := TCmd_Net_Info_List.Create;
+end;
+
+destructor TCommand_Script.Destroy;
+begin
+  disposeObject(Client_NetInfo_List);
+  disposeObject(Service_NetInfo_List);
+  disposeObject(opRT);
+  disposeObject(Config);
+  inherited Destroy;
+end;
+
+procedure TCommand_Script.RegApi;
+var
+  L: TListPascalString;
+  i: Integer;
+begin
   L := TListPascalString.Create;
   Config.GetNameList(L);
   for i := 0 to L.Count - 1 do
@@ -224,35 +251,11 @@ begin
   opRT.RegOpM('Connection', Do_Client);
   opRT.RegOpM('Net', Do_Client);
   opRT.RegOpM('Build', Do_Client);
-
-  client_ip := '';
-  client_port := 0;
-  client_depend := '';
-  service_ip := '';
-  service_port := 0;
-  service_depend := '';
 end;
 
-destructor TCommand_Struct.Destroy;
-begin
-  disposeObject(opRT);
-  disposeObject(Config);
-  inherited Destroy;
-end;
-
-procedure TCommand_Struct.Parsing(expression: U_String);
+procedure TCommand_Script.Parsing(expression: U_String);
 begin
   EvaluateExpressionValue(False, tsPascal, expression, opRT);
-  if ConfigIsUpdate then
-    begin
-      DTC40.C40ReadConfig(Config);
-      DTC40.DTC40_RootPath := Config.GetDefaultValue('Root', DTC40.DTC40_RootPath);
-      if not umlDirectoryExists(DTC40.DTC40_RootPath) then
-          umlCreateDirectory(DTC40.DTC40_RootPath);
-      DTC40.DTC40_Password := Config.GetDefaultValue('Password', DTC40.DTC40_Password);
-      C40AppTempletForm.Caption := Config.GetDefaultValue('Title', C40AppTempletForm.Caption);
-      Application.Title := Config.GetDefaultValue('AppTitle', Application.Title);
-    end;
 end;
 
 procedure TC40AppTempletForm.netTimerTimer(Sender: TObject);
@@ -269,10 +272,10 @@ begin
   UpdateSaaSInfo;
 end;
 
-procedure TC40AppTempletForm.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TC40AppTempletForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   WriteConfig;
-  Action := caFree;
+  CloseAction := caFree;
 end;
 
 procedure TC40AppTempletForm.DependEditChange(Sender: TObject);
@@ -311,11 +314,6 @@ begin
   DependEdit.OnChange := nil;
   DependEdit.Text := RebuildDependInfo(DependEdit.Text);
   DependEdit.OnChange := DependEditChange;
-end;
-
-procedure TC40AppTempletForm.RependNetListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
-begin
-  AllowChange := not IsCommandLineWorkEnvir;
 end;
 
 procedure TC40AppTempletForm.BuildDependNetButtonClick(Sender: TObject);
@@ -366,14 +364,9 @@ begin
   ServiceDependEdit.OnChange := ServiceDependEditChange;
 end;
 
-procedure TC40AppTempletForm.ServiceListViewChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
-begin
-  AllowChange := not IsCommandLineWorkEnvir;
-end;
-
 procedure TC40AppTempletForm.ServBuildNetButtonClick(Sender: TObject);
 begin
-  with DTC40.TDTC40_PhysicsService.Create(ServIPComboBox.Text, EStrToInt(ServPortEdit.Text, 0), PhysicsIO.TPhysicsServer.Create) do
+  with DTC40.TDTC40_PhysicsService.Create(ServIPEdit.Text, EStrToInt(ServPortEdit.Text, 0), PhysicsIO.TPhysicsServer.Create) do
     begin
       BuildDependNetwork(ServiceDependEdit.Text);
       OnEvent := On_DTC40_PhysicsService_Event;
@@ -452,20 +445,27 @@ begin
 
   param := TPascalStringList.Create;
 
-  param.Add(Format('Title(' + #39 + '%s' + #39 + ')', [cmdLineTitleEdit.Text]));
-  param.Add(Format('AppTitle(' + #39 + '%s' + #39 + ')', [cmdLineAppTitleEdit.Text]));
-  param.Add(Format('Password(' + #39 + '%s' + #39 + ')', [DTC40.DTC40_Password]));
+  param.Add(Format('Title(%s)', [TTextParsing.TranslateTextToPascalDecl(cmdLineTitleEdit.Text).Text]));
+  param.Add(Format('AppTitle(%s)', [TTextParsing.TranslateTextToPascalDecl(cmdLineAppTitleEdit.Text).Text]));
+  param.Add(Format('DisableUI(%s)', [TTextParsing.TranslateTextToPascalDecl(umlBoolToStr(cmdLineDisableUICheckBox.Checked)).Text]));
+  param.Add(Format('Timer(%s)', [TTextParsing.TranslateTextToPascalDecl(umlIntToStr(netTimer.Interval)).Text]));
+  param.Add(Format('Password(%s)', [TTextParsing.TranslateTextToPascalDecl(DTC40.DTC40_Password).Text]));
+
   hs.ProgressP(procedure(Sender: THashStringList; Name_: PSystemString; const V: SystemString)
     begin
       if DTC40_DefaultConfig.GetDefaultValue(Name_^, V) <> V then
           param.Add(Format('%s(%s)', [Name_^, V]));
     end);
 
-  if (ServIPComboBox.Text <> '') and (ServPortEdit.Text <> '') and (ServiceDependEdit.Text <> '') then
-      param.Add(Format('Service(' + #39 + '%s' + #39 + ',%s,' + #39 + '%s' + #39 + ')', [ServIPComboBox.Text, ServPortEdit.Text, ServiceDependEdit.Text]));
+  if (ServIPEdit.Text <> '') and (ServPortEdit.Text <> '') and (ServiceDependEdit.Text <> '') then
+      param.Add(Format('Service(%s,%s,%s)', [TTextParsing.TranslateTextToPascalDecl(ServIPEdit.Text).Text,
+      TTextParsing.TranslateTextToPascalDecl(ServPortEdit.Text).Text,
+      TTextParsing.TranslateTextToPascalDecl(ServiceDependEdit.Text).Text]));
 
   if (JoinHostEdit.Text <> '') and (JoinPortEdit.Text <> '') and (DependEdit.Text <> '') then
-      param.Add(Format('Tunnel(' + #39 + '%s' + #39 + ',%s,' + #39 + '%s' + #39 + ')', [JoinHostEdit.Text, JoinPortEdit.Text, DependEdit.Text]));
+      param.Add(Format('Tunnel(%s,%s,%s)', [TTextParsing.TranslateTextToPascalDecl(JoinHostEdit.Text).Text,
+      TTextParsing.TranslateTextToPascalDecl(JoinPortEdit.Text).Text,
+      TTextParsing.TranslateTextToPascalDecl(DependEdit.Text).Text]));
 
   final_param := '"';
   for i := 0 to param.Count - 1 do
@@ -513,7 +513,7 @@ begin
   DependEdit.Text := te.GetDefaultValue('Main', DependEdit.Name, DependEdit.Text);
   DependEditExit(DependEdit);
 
-  ServIPComboBox.Text := te.GetDefaultValue('Main', ServIPComboBox.Name, ServIPComboBox.Text);
+  ServIPEdit.Text := te.GetDefaultValue('Main', ServIPEdit.Name, ServIPEdit.Text);
   ServPortEdit.Text := te.GetDefaultValue('Main', ServPortEdit.Name, ServPortEdit.Text);
   ServiceDependEdit.Text := te.GetDefaultValue('Main', ServiceDependEdit.Name, ServiceDependEdit.Text);
   ServiceDependEditExit(ServiceDependEdit);
@@ -537,7 +537,7 @@ begin
   te.SetDefaultValue('Main', JoinPortEdit.Name, JoinPortEdit.Text);
   te.SetDefaultValue('Main', DependEdit.Name, DependEdit.Text);
 
-  te.SetDefaultValue('Main', ServIPComboBox.Name, ServIPComboBox.Text);
+  te.SetDefaultValue('Main', ServIPEdit.Name, ServIPEdit.Text);
   te.SetDefaultValue('Main', ServPortEdit.Name, ServPortEdit.Text);
   te.SetDefaultValue('Main', ServiceDependEdit.Name, ServiceDependEdit.Text);
 
@@ -861,7 +861,7 @@ begin
     end;
   for i := 0 to L.Count - 1 do
     begin
-      nd1 := GetPathTreeNode(Format('host: %s port: %d', [L[i].PhysicsAddr.Text, L[i].PhysicsPort]), '|', SaaS_Info_TreeView, nil);
+      nd1 := GetPathTreeNode(Format('Network Nodes|host: %s port: %d', [L[i].PhysicsAddr.Text, L[i].PhysicsPort]), '|', SaaS_Info_TreeView, nil);
       nd2 := GetPathTreeNode(Format('Type: %s', [L[i].ServiceTyp.Text]), '|', SaaS_Info_TreeView, nd1);
       GetPathTreeNode(Format('hash:*@hash: %s', [umlMD5ToStr(L[i].Hash).Text]), '|', SaaS_Info_TreeView, nd2);
       GetPathTreeNode(Format('workload:*@workload: %d / %d', [L[i].Workload, L[i].MaxWorkload]), '|', SaaS_Info_TreeView, nd2);
@@ -871,7 +871,7 @@ begin
   for i := 0 to DTC40_ServicePool.Count - 1 do
     begin
       cs := DTC40_ServicePool[i];
-      nd1 := GetPathTreeNode(Format('host: %s port: %d', [cs.ServiceInfo.PhysicsAddr.Text, cs.ServiceInfo.PhysicsPort]), '|', SaaS_Info_TreeView, nil);
+      nd1 := GetPathTreeNode(Format('Network Nodes|host: %s port: %d', [cs.ServiceInfo.PhysicsAddr.Text, cs.ServiceInfo.PhysicsPort]), '|', SaaS_Info_TreeView, nil);
       nd2 := GetPathTreeNode(Format('Type: %s', [cs.ServiceInfo.ServiceTyp.Text]), '|', SaaS_Info_TreeView, nd1);
       nd3 := GetPathTreeNode(Format('local service is running, class: %s unit: %s', [cs.ClassName, cs.UnitName + '.pas']), '|', SaaS_Info_TreeView, nd2);
     end;
@@ -879,7 +879,7 @@ begin
   for i := 0 to DTC40_ClientPool.Count - 1 do
     begin
       cc := DTC40_ClientPool[i];
-      nd1 := GetPathTreeNode(Format('host: %s port: %d', [cc.ClientInfo.PhysicsAddr.Text, cc.ClientInfo.PhysicsPort]), '|', SaaS_Info_TreeView, nil);
+      nd1 := GetPathTreeNode(Format('Network Nodes|host: %s port: %d', [cc.ClientInfo.PhysicsAddr.Text, cc.ClientInfo.PhysicsPort]), '|', SaaS_Info_TreeView, nil);
       nd2 := GetPathTreeNode(Format('Type: %s', [cc.ClientInfo.ServiceTyp.Text]), '|', SaaS_Info_TreeView, nd1);
       nd3 := GetPathTreeNode(Format('local client is running, class: %s unit: %s', [cc.ClassName, cc.UnitName + '.pas']), '|', SaaS_Info_TreeView, nd2);
     end;
@@ -964,14 +964,6 @@ begin
   RefreshDependReg('DP');
   RefreshServiceReg('DP');
 
-  ServIPComboBox.Items.Assign(LocalIPList(TSocketFamily.sfIPv4));
-  ServIPComboBox.Items.AddStrings(LocalIPList(TSocketFamily.sfIPv6));
-  if ServIPComboBox.Items.Count > 0 then
-    begin
-      ServIPComboBox.Text := ServIPComboBox.Items[0];
-      JoinHostEdit.Text := ServIPComboBox.Text;
-    end;
-
   ExtractAndProcessCmdLine(C40AppParam);
   ReloadOpt;
   ReadConfig;
@@ -1013,6 +1005,11 @@ function TC40AppTempletForm.ExtractAndProcessCmdLine(param_: U_StringArray): Boo
         TComboBox(comp).Color := clBtnface;
         TComboBox(comp).Enabled := False;
       end
+    else if (comp is TCustomListView) then
+      begin
+        TListView(comp).Color := clBtnface;
+        TListView(comp).Enabled := False;
+      end
     else if (comp is TCustomCheckBox) then
       begin
         TCheckBox(comp).Font.Color := clBtnface;
@@ -1031,68 +1028,114 @@ function TC40AppTempletForm.ExtractAndProcessCmdLine(param_: U_StringArray): Boo
 var
   error_: Boolean;
   IsInited_: Boolean;
-  cs: TCommand_Struct;
-  i: Integer;
+  cs: TCommand_Script;
+  i, j: Integer;
+  net_info_: TCmd_Net_Info_;
   arry: TDTC40_DependNetworkInfoArray;
+  DisableUI: Boolean;
 begin
+  if length(param_) = 0 then
+      exit;
   error_ := False;
   IsInited_ := False;
+  DisableUI := False;
   try
-    cs := TCommand_Struct.Create;
+    cs := TCommand_Script.Create;
+    DTC40.C40WriteConfig(cs.Config);
+    cs.Config.SetDefaultValue('Root', DTC40.DTC40_RootPath);
+    cs.Config.SetDefaultValue('Password', DTC40.DTC40_Password);
+    cs.Config.SetDefaultValue('Title', Caption);
+    cs.Config.SetDefaultValue('AppTitle', Application.Title);
+    cs.Config.SetDefaultValue('DisableUI', umlBoolToStr(DisableUI));
+    cs.Config.SetDefaultValue('Timer', umlIntToStr(netTimer.Interval));
+    cs.RegApi;
+
     for i := low(param_) to high(param_) do
         cs.Parsing(param_[i]);
 
-    if (not error_) and (cs.service_ip <> '') and (cs.service_port > 0) and (cs.service_depend <> '') then
+    if (not error_) and (cs.Client_NetInfo_List.Count > 0) then
       begin
-        arry := ExtractDependInfo(cs.service_depend);
-        for i := Low(arry) to high(arry) do
-          if FindRegistedC40(arry[i].Typ) = nil then
-            begin
-              DoStatus('no found %s', [arry[i].Typ.Text]);
-              error_ := True;
-            end;
+        for i := 0 to cs.Client_NetInfo_List.Count - 1 do
+          begin
+            net_info_ := cs.Client_NetInfo_List[i];
+            arry := ExtractDependInfo(net_info_.depend);
+            for j := Low(arry) to high(arry) do
+              if FindRegistedC40(arry[j].Typ) = nil then
+                begin
+                  DoStatus('no found %s', [arry[j].Typ.Text]);
+                  error_ := True;
+                end;
+          end;
       end;
 
-    if (not error_) and (cs.client_ip <> '') and (cs.client_port > 0) and (cs.client_depend <> '') then
+    if (not error_) and (cs.Service_NetInfo_List.Count > 0) then
       begin
-        arry := ExtractDependInfo(cs.client_depend);
-        for i := Low(arry) to high(arry) do
-          if FindRegistedC40(arry[i].Typ) = nil then
-            begin
-              DoStatus('no found %s', [arry[i].Typ.Text]);
-              error_ := True;
-            end;
+        for i := 0 to cs.Service_NetInfo_List.Count - 1 do
+          begin
+            net_info_ := cs.Service_NetInfo_List[i];
+            arry := ExtractDependInfo(net_info_.depend);
+            for j := Low(arry) to high(arry) do
+              if FindRegistedC40(arry[j].Typ) = nil then
+                begin
+                  DoStatus('no found %s', [arry[j].Typ.Text]);
+                  error_ := True;
+                end;
+          end;
       end;
 
     if not error_ then
       begin
-        if (cs.service_ip <> '') and (cs.service_port > 0) and (cs.service_depend <> '') then
+        if cs.ConfigIsUpdate then
           begin
-            ServIPComboBox.Text := cs.service_ip;
-            ServPortEdit.Text := umlIntToStr(cs.client_port);
-            ServiceDependEdit.Text := cs.service_depend;
-            ServiceDependEdit.OnChange := nil;
-            ServiceDependEdit.Text := RebuildServiceInfo(ServiceDependEdit.Text);
-            ServiceDependEdit.OnChange := ServiceDependEditChange;
-            ServBuildNetButtonClick(ServBuildNetButton);
-            IsInited_ := True;
+            DTC40.C40ReadConfig(cs.Config);
+            DTC40.DTC40_RootPath := cs.Config.GetDefaultValue('Root', DTC40.DTC40_RootPath);
+            if not umlDirectoryExists(DTC40.DTC40_RootPath) then
+                umlCreateDirectory(DTC40.DTC40_RootPath);
+            DTC40.DTC40_Password := cs.Config.GetDefaultValue('Password', DTC40.DTC40_Password);
+            C40AppTempletForm.Caption := cs.Config.GetDefaultValue('Title', C40AppTempletForm.Caption);
+            Application.Title := cs.Config.GetDefaultValue('AppTitle', Application.Title);
+            DisableUI := EStrToBool(cs.Config.GetDefaultValue('DisableUI', umlBoolToStr(DisableUI)));
+            netTimer.Interval := EStrToInt(cs.Config.GetDefaultValue('Timer', umlIntToStr(netTimer.Interval)));
           end;
 
-        if (cs.client_ip <> '') and (cs.client_port > 0) and (cs.client_depend <> '') then
+        if DisableUI then
+            DoDisableAllComp(self);
+
+        if cs.Service_NetInfo_List.Count > 0 then
           begin
-            JoinHostEdit.Text := cs.client_ip;
-            JoinPortEdit.Text := umlIntToStr(cs.client_port);
-            DependEdit.Text := cs.client_depend;
-            DependEdit.OnChange := nil;
-            DependEdit.Text := RebuildDependInfo(DependEdit.Text);
-            DependEdit.OnChange := DependEditChange;
-            BuildDependNetButtonClick(BuildDependNetButton);
-            IsInited_ := True;
+            for i := 0 to cs.Service_NetInfo_List.Count - 1 do
+              begin
+                net_info_ := cs.Service_NetInfo_List[i];
+
+                ServIPEdit.Text := net_info_.ip;
+                ServPortEdit.Text := umlIntToStr(net_info_.port);
+                ServiceDependEdit.Text := net_info_.depend;
+                ServiceDependEdit.OnChange := nil;
+                ServiceDependEdit.Text := RebuildServiceInfo(ServiceDependEdit.Text);
+                ServiceDependEdit.OnChange := ServiceDependEditChange;
+                ServBuildNetButtonClick(ServBuildNetButton);
+                IsInited_ := True;
+              end;
+          end;
+
+        if cs.Client_NetInfo_List.Count > 0 then
+          begin
+            for i := 0 to cs.Client_NetInfo_List.Count - 1 do
+              begin
+                net_info_ := cs.Client_NetInfo_List[i];
+                JoinHostEdit.Text := net_info_.ip;
+                JoinPortEdit.Text := umlIntToStr(net_info_.port);
+                DependEdit.Text := net_info_.depend;
+                DependEdit.OnChange := nil;
+                DependEdit.Text := RebuildDependInfo(DependEdit.Text);
+                DependEdit.OnChange := DependEditChange;
+                BuildDependNetButtonClick(BuildDependNetButton);
+                IsInited_ := True;
+              end;
           end;
 
         if IsInited_ then
           begin
-            DoDisableAllComp(self);
             IsCommandLineWorkEnvir := True;
           end;
       end;

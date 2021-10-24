@@ -1,18 +1,16 @@
 object C40AppTempletForm: TC40AppTempletForm
-  Left = 465
-  Height = 563
-  Top = 165
-  Width = 853
-  HorzScrollBar.Page = 378
-  HorzScrollBar.Range = 378
-  VertScrollBar.Page = 518
-  VertScrollBar.Range = 518
-  BorderWidth = 5
+  Left = 658
+  Height = 500
+  Top = 257
+  Width = 700
+  HorzScrollBar.Page = 327
+  VertScrollBar.Page = 498
+  AutoScroll = True
   Caption = 'Cloud 4.0 Application Templet.'
-  ClientHeight = 563
-  ClientWidth = 853
+  ClientHeight = 500
+  ClientWidth = 700
   Color = clBtnFace
-  Constraints.MinHeight = 550
+  Constraints.MinHeight = 500
   Constraints.MinWidth = 700
   Font.Color = clWindowText
   Font.Height = -11
@@ -22,20 +20,20 @@ object C40AppTempletForm: TC40AppTempletForm
   LCLVersion = '2.0.12.0'
   object botSplitter: TSplitter
     Cursor = crVSplit
-    Left = 5
+    Left = 0
     Height = 8
-    Top = 421
-    Width = 843
+    Top = 363
+    Width = 700
     Align = alBottom
     AutoSnap = False
     MinSize = 120
     ResizeAnchor = akBottom
   end
   object logMemo: TMemo
-    Left = 5
+    Left = 0
     Height = 129
-    Top = 429
-    Width = 843
+    Top = 371
+    Width = 700
     Align = alBottom
     BorderStyle = bsNone
     DoubleBuffered = True
@@ -45,24 +43,24 @@ object C40AppTempletForm: TC40AppTempletForm
     WordWrap = False
   end
   object PGControl: TPageControl
-    Left = 5
-    Height = 416
-    Top = 5
-    Width = 843
+    Left = 0
+    Height = 363
+    Top = 0
+    Width = 700
     ActivePage = BuildNetworkTabSheet
     Align = alClient
     TabIndex = 0
     TabOrder = 1
     object BuildNetworkTabSheet: TTabSheet
       Caption = 'Build Network'
-      ClientHeight = 390
-      ClientWidth = 835
+      ClientHeight = 337
+      ClientWidth = 692
       object net_Top_Splitter: TSplitter
         Cursor = crVSplit
         Left = 0
         Height = 8
         Top = 147
-        Width = 835
+        Width = 692
         Align = alTop
         AutoSnap = False
         MinSize = 100
@@ -72,30 +70,30 @@ object C40AppTempletForm: TC40AppTempletForm
         Left = 0
         Height = 147
         Top = 0
-        Width = 835
+        Width = 692
         Align = alTop
         BevelOuter = bvNone
         Caption = 'DependPanel'
         ClientHeight = 147
-        ClientWidth = 835
+        ClientWidth = 692
         TabOrder = 0
         object DependNetToolPanel: TPanel
           Left = 0
-          Height = 40
+          Height = 32
           Top = 0
-          Width = 835
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 40
-          ClientWidth = 835
+          ClientHeight = 32
+          ClientWidth = 692
           DoubleBuffered = True
           ParentDoubleBuffered = False
           TabOrder = 0
           object JoinHostEdit: TLabeledEdit
             Left = 56
             Height = 21
-            Top = 6
-            Width = 136
+            Top = 5
+            Width = 105
             EditLabel.Height = 13
             EditLabel.Width = 44
             EditLabel.Caption = 'Join Host'
@@ -104,10 +102,10 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 0
           end
           object JoinPortEdit: TLabeledEdit
-            Left = 224
+            Left = 190
             Height = 21
-            Top = 6
-            Width = 48
+            Top = 5
+            Width = 49
             EditLabel.Height = 13
             EditLabel.Width = 20
             EditLabel.Caption = 'Port'
@@ -116,7 +114,7 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 1
           end
           object BuildDependNetButton: TButton
-            Left = 709
+            Left = 566
             Height = 25
             Top = 3
             Width = 76
@@ -126,7 +124,7 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 3
           end
           object resetDependButton: TButton
-            Left = 791
+            Left = 648
             Height = 25
             Top = 3
             Width = 42
@@ -136,10 +134,10 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 4
           end
           object DependEdit: TLabeledEdit
-            Left = 320
+            Left = 293
             Height = 21
-            Top = 6
-            Width = 379
+            Top = 5
+            Width = 267
             Anchors = [akTop, akLeft, akRight]
             EditLabel.Height = 13
             EditLabel.Width = 37
@@ -153,9 +151,9 @@ object C40AppTempletForm: TC40AppTempletForm
         end
         object RependNetListView: TListView
           Left = 0
-          Height = 107
-          Top = 40
-          Width = 835
+          Height = 115
+          Top = 32
+          Width = 692
           Align = alClient
           BorderStyle = bsNone
           Checkboxes = True
@@ -185,30 +183,30 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object servicePanel: TPanel
         Left = 0
-        Height = 235
+        Height = 182
         Top = 155
-        Width = 835
+        Width = 692
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 235
-        ClientWidth = 835
+        ClientHeight = 182
+        ClientWidth = 692
         TabOrder = 1
         object ServiceToolPanel: TPanel
           Left = 0
-          Height = 40
+          Height = 30
           Top = 0
-          Width = 835
+          Width = 692
           Align = alTop
           BevelOuter = bvNone
-          ClientHeight = 40
-          ClientWidth = 835
+          ClientHeight = 30
+          ClientWidth = 692
           DoubleBuffered = True
           ParentDoubleBuffered = False
           TabOrder = 0
           object ServIPEdit: TLabeledEdit
-            Left = 68
+            Left = 78
             Height = 21
-            Top = 7
+            Top = 5
             Width = 161
             EditLabel.Height = 13
             EditLabel.Width = 62
@@ -218,9 +216,9 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 0
           end
           object ServPortEdit: TLabeledEdit
-            Left = 260
+            Left = 270
             Height = 21
-            Top = 7
+            Top = 5
             Width = 49
             EditLabel.Height = 13
             EditLabel.Width = 20
@@ -230,10 +228,10 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 1
           end
           object ServiceDependEdit: TLabeledEdit
-            Left = 395
+            Left = 405
             Height = 21
-            Top = 7
-            Width = 304
+            Top = 5
+            Width = 155
             Anchors = [akTop, akLeft, akRight]
             EditLabel.Height = 13
             EditLabel.Width = 75
@@ -245,9 +243,9 @@ object C40AppTempletForm: TC40AppTempletForm
             OnExit = ServiceDependEditExit
           end
           object ServBuildNetButton: TButton
-            Left = 709
+            Left = 566
             Height = 25
-            Top = 5
+            Top = 3
             Width = 78
             Anchors = [akTop, akRight]
             Caption = 'Build Service'
@@ -255,9 +253,9 @@ object C40AppTempletForm: TC40AppTempletForm
             TabOrder = 3
           end
           object ServiceResetButton: TButton
-            Left = 791
+            Left = 648
             Height = 25
-            Top = 5
+            Top = 3
             Width = 42
             Anchors = [akTop, akRight]
             Caption = 'Reset'
@@ -267,9 +265,9 @@ object C40AppTempletForm: TC40AppTempletForm
         end
         object ServiceListView: TListView
           Left = 0
-          Height = 195
-          Top = 40
-          Width = 835
+          Height = 152
+          Top = 30
+          Width = 692
           Align = alClient
           BorderStyle = bsNone
           Checkboxes = True
@@ -291,7 +289,7 @@ object C40AppTempletForm: TC40AppTempletForm
           HideSelection = False
           ReadOnly = True
           RowSelect = True
-          ScrollBars = ssAutoVertical
+          ScrollBars = ssVertical
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = ServiceListViewChange
@@ -300,8 +298,8 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object OptTabSheet: TTabSheet
       Caption = 'SaaS Options'
-      ClientHeight = 390
-      ClientWidth = 818
+      ClientHeight = 337
+      ClientWidth = 692
       ImageIndex = 2
       object QuietCheckBox: TCheckBox
         Left = 175
@@ -428,12 +426,12 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object LocalServiceStates_TabSheet: TTabSheet
       Caption = 'Service-States'
-      ClientHeight = 390
-      ClientWidth = 818
+      ClientHeight = 0
+      ClientWidth = 0
       ImageIndex = 3
       object localserinfoLSplitter: TSplitter
         Left = 200
-        Height = 390
+        Height = 296
         Top = 0
         Width = 8
         AutoSnap = False
@@ -441,9 +439,9 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object ServiceInfoMemo: TMemo
         Left = 208
-        Height = 390
+        Height = 296
         Top = 0
-        Width = 610
+        Width = 468
         Align = alClient
         BorderStyle = bsNone
         DoubleBuffered = True
@@ -454,7 +452,7 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object ServInfoPhyAddrListBox: TListBox
         Left = 0
-        Height = 390
+        Height = 296
         Top = 0
         Width = 200
         Align = alLeft
@@ -468,12 +466,12 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object TunnelStatesTabSheet: TTabSheet
       Caption = 'Tunnel-States'
-      ClientHeight = 390
-      ClientWidth = 818
+      ClientHeight = 0
+      ClientWidth = 0
       ImageIndex = 3
       object tunnel_infoLSplitter: TSplitter
         Left = 200
-        Height = 390
+        Height = 296
         Top = 0
         Width = 8
         AutoSnap = False
@@ -481,9 +479,9 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object TunnelInfoMemo: TMemo
         Left = 208
-        Height = 390
+        Height = 296
         Top = 0
-        Width = 610
+        Width = 468
         Align = alClient
         BorderStyle = bsNone
         DoubleBuffered = True
@@ -494,7 +492,7 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object TunnelInfoPhyAddrListBox: TListBox
         Left = 0
-        Height = 390
+        Height = 296
         Top = 0
         Width = 200
         Align = alLeft
@@ -508,56 +506,57 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object SaaS_Network_States_TabSheet: TTabSheet
       Caption = 'SaaS-Network-States'
-      ClientHeight = 390
-      ClientWidth = 818
+      ClientHeight = 0
+      ClientWidth = 0
       ImageIndex = 4
       object SaaS_Info_TreeView: TTreeView
         Left = 0
-        Height = 390
+        Height = 296
         Top = 0
-        Width = 818
+        Width = 676
         Align = alClient
         BorderStyle = bsNone
         HideSelection = False
-        Indent = 19
+        Indent = 25
         ReadOnly = True
         RightClickSelect = True
         RowSelect = True
         TabOrder = 0
+        OnKeyUp = SaaS_Info_TreeViewKeyUp
         Options = [tvoAutoItemHeight, tvoKeepCollapsedNodes, tvoReadOnly, tvoRightClickSelect, tvoRowSelect, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
       end
     end
     object cmd_tool_TabSheet: TTabSheet
       Caption = 'Command Line Tool'
-      ClientHeight = 390
-      ClientWidth = 818
+      ClientHeight = 0
+      ClientWidth = 0
       ImageIndex = 5
       object cmdLineParamEdit: TLabeledEdit
-        Left = 98
+        Left = 96
         Height = 21
-        Top = 26
-        Width = 681
+        Top = 19
+        Width = 547
         Anchors = [akTop, akLeft, akRight]
         EditLabel.Height = 13
-        EditLabel.Width = 54
-        EditLabel.Caption = 'parameter:'
+        EditLabel.Width = 79
+        EditLabel.Caption = 'boot parameter:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
         TabOrder = 0
       end
       object GenerateCmdLineButton: TButton
-        Left = 98
+        Left = 96
         Height = 25
-        Top = 80
+        Top = 100
         Width = 85
         Caption = 'Generate'
         OnClick = GenerateCmdLineButtonClick
-        TabOrder = 3
+        TabOrder = 4
       end
       object cmdLineTitleEdit: TLabeledEdit
-        Left = 98
+        Left = 96
         Height = 21
-        Top = 53
+        Top = 46
         Width = 108
         EditLabel.Height = 13
         EditLabel.Width = 24
@@ -567,9 +566,9 @@ object C40AppTempletForm: TC40AppTempletForm
         TabOrder = 1
       end
       object cmdLineAppTitleEdit: TLabeledEdit
-        Left = 265
+        Left = 263
         Height = 21
-        Top = 53
+        Top = 46
         Width = 108
         EditLabel.Height = 13
         EditLabel.Width = 46
@@ -578,10 +577,20 @@ object C40AppTempletForm: TC40AppTempletForm
         LabelPosition = lpLeft
         TabOrder = 2
       end
+      object cmdLineDisableUICheckBox: TCheckBox
+        Left = 97
+        Height = 17
+        Top = 75
+        Width = 97
+        Caption = 'Disable UI'
+        Checked = True
+        State = cbChecked
+        TabOrder = 3
+      end
     end
   end
   object netTimer: TTimer
-    Interval = 10
+    Interval = 100
     OnTimer = netTimerTimer
     Left = 50
     Top = 344

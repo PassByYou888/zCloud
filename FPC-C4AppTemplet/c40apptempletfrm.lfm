@@ -1,7 +1,7 @@
 object C40AppTempletForm: TC40AppTempletForm
-  Left = 658
+  Left = 689
   Height = 500
-  Top = 257
+  Top = 275
   Width = 700
   HorzScrollBar.Page = 327
   VertScrollBar.Page = 498
@@ -289,7 +289,7 @@ object C40AppTempletForm: TC40AppTempletForm
           HideSelection = False
           ReadOnly = True
           RowSelect = True
-          ScrollBars = ssVertical
+          ScrollBars = ssAutoVertical
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = ServiceListViewChange
@@ -426,12 +426,12 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object LocalServiceStates_TabSheet: TTabSheet
       Caption = 'Service-States'
-      ClientHeight = 0
-      ClientWidth = 0
+      ClientHeight = 337
+      ClientWidth = 692
       ImageIndex = 3
       object localserinfoLSplitter: TSplitter
         Left = 200
-        Height = 296
+        Height = 337
         Top = 0
         Width = 8
         AutoSnap = False
@@ -439,9 +439,9 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object ServiceInfoMemo: TMemo
         Left = 208
-        Height = 296
+        Height = 337
         Top = 0
-        Width = 468
+        Width = 484
         Align = alClient
         BorderStyle = bsNone
         DoubleBuffered = True
@@ -452,7 +452,7 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object ServInfoPhyAddrListBox: TListBox
         Left = 0
-        Height = 296
+        Height = 337
         Top = 0
         Width = 200
         Align = alLeft
@@ -466,12 +466,12 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object TunnelStatesTabSheet: TTabSheet
       Caption = 'Tunnel-States'
-      ClientHeight = 0
-      ClientWidth = 0
+      ClientHeight = 337
+      ClientWidth = 692
       ImageIndex = 3
       object tunnel_infoLSplitter: TSplitter
         Left = 200
-        Height = 296
+        Height = 337
         Top = 0
         Width = 8
         AutoSnap = False
@@ -479,9 +479,9 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object TunnelInfoMemo: TMemo
         Left = 208
-        Height = 296
+        Height = 337
         Top = 0
-        Width = 468
+        Width = 484
         Align = alClient
         BorderStyle = bsNone
         DoubleBuffered = True
@@ -492,7 +492,7 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object TunnelInfoPhyAddrListBox: TListBox
         Left = 0
-        Height = 296
+        Height = 337
         Top = 0
         Width = 200
         Align = alLeft
@@ -506,14 +506,14 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object SaaS_Network_States_TabSheet: TTabSheet
       Caption = 'SaaS-Network-States'
-      ClientHeight = 0
-      ClientWidth = 0
+      ClientHeight = 337
+      ClientWidth = 692
       ImageIndex = 4
       object SaaS_Info_TreeView: TTreeView
         Left = 0
-        Height = 296
+        Height = 337
         Top = 0
-        Width = 676
+        Width = 692
         Align = alClient
         BorderStyle = bsNone
         HideSelection = False
@@ -528,64 +528,114 @@ object C40AppTempletForm: TC40AppTempletForm
     end
     object cmd_tool_TabSheet: TTabSheet
       Caption = 'Command Line Tool'
-      ClientHeight = 0
-      ClientWidth = 0
+      ClientHeight = 337
+      ClientWidth = 692
       ImageIndex = 5
+      object ArryParamLabel: TLabel
+        Left = 98
+        Height = 13
+        Top = 126
+        Width = 79
+        Caption = 'array parameter'
+        ParentColor = False
+      end
       object cmdLineParamEdit: TLabeledEdit
-        Left = 96
+        Left = 98
         Height = 21
-        Top = 19
-        Width = 547
+        Top = 42
+        Width = 555
         Anchors = [akTop, akLeft, akRight]
         EditLabel.Height = 13
         EditLabel.Width = 79
         EditLabel.Caption = 'boot parameter:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
-        TabOrder = 0
+        TabOrder = 3
       end
       object GenerateCmdLineButton: TButton
-        Left = 96
+        Left = 98
         Height = 25
-        Top = 100
+        Top = 250
         Width = 85
         Caption = 'Generate'
         OnClick = GenerateCmdLineButtonClick
-        TabOrder = 4
+        TabOrder = 8
       end
       object cmdLineTitleEdit: TLabeledEdit
-        Left = 96
+        Left = 98
         Height = 21
-        Top = 46
+        Top = 15
         Width = 108
         EditLabel.Height = 13
         EditLabel.Width = 24
         EditLabel.Caption = 'Title:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
-        TabOrder = 1
+        TabOrder = 0
       end
       object cmdLineAppTitleEdit: TLabeledEdit
-        Left = 263
+        Left = 265
         Height = 21
-        Top = 46
+        Top = 15
         Width = 108
         EditLabel.Height = 13
         EditLabel.Width = 46
         EditLabel.Caption = 'App Title:'
         EditLabel.ParentColor = False
         LabelPosition = lpLeft
-        TabOrder = 2
+        TabOrder = 1
       end
       object cmdLineDisableUICheckBox: TCheckBox
-        Left = 97
-        Height = 17
-        Top = 75
-        Width = 97
+        Left = 390
+        Height = 21
+        Top = 17
+        Width = 70
         Caption = 'Disable UI'
         Checked = True
         State = cbChecked
-        TabOrder = 3
+        TabOrder = 2
+      end
+      object ArryParamMemo: TMemo
+        Left = 98
+        Height = 89
+        Top = 145
+        Width = 366
+        TabOrder = 7
+      end
+      object codeParamEdit: TLabeledEdit
+        Left = 98
+        Height = 21
+        Top = 96
+        Width = 555
+        Anchors = [akTop, akLeft, akRight]
+        EditLabel.Height = 13
+        EditLabel.Width = 80
+        EditLabel.Caption = 'code parameter:'
+        EditLabel.ParentColor = False
+        LabelPosition = lpLeft
+        TabOrder = 6
+      end
+      object Pas_RadioButton: TRadioButton
+        Left = 98
+        Height = 21
+        Top = 73
+        Width = 104
+        Caption = 'pascal code style'
+        Checked = True
+        DoubleBuffered = True
+        ParentDoubleBuffered = False
+        TabOrder = 4
+        TabStop = True
+      end
+      object c_RadioButton: TRadioButton
+        Left = 212
+        Height = 21
+        Top = 73
+        Width = 84
+        Caption = 'C Code Style'
+        DoubleBuffered = True
+        ParentDoubleBuffered = False
+        TabOrder = 5
       end
     end
   end

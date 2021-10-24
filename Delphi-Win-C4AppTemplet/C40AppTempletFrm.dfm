@@ -538,9 +538,16 @@ object C40AppTempletForm: TC40AppTempletForm
       DesignSize = (
         676
         296)
+      object ArryParamLabel: TLabel
+        Left = 98
+        Top = 126
+        Width = 79
+        Height = 13
+        Caption = 'array parameter'
+      end
       object cmdLineParamEdit: TLabeledEdit
-        Left = 96
-        Top = 19
+        Left = 98
+        Top = 42
         Width = 547
         Height = 21
         Anchors = [akLeft, akTop, akRight]
@@ -548,48 +555,89 @@ object C40AppTempletForm: TC40AppTempletForm
         EditLabel.Height = 13
         EditLabel.Caption = 'boot parameter:'
         LabelPosition = lpLeft
-        TabOrder = 0
+        TabOrder = 3
       end
       object GenerateCmdLineButton: TButton
-        Left = 96
-        Top = 100
+        Left = 98
+        Top = 250
         Width = 85
         Height = 25
         Caption = 'Generate'
-        TabOrder = 4
+        TabOrder = 8
         OnClick = GenerateCmdLineButtonClick
       end
       object cmdLineTitleEdit: TLabeledEdit
-        Left = 96
-        Top = 46
+        Left = 98
+        Top = 15
         Width = 108
         Height = 21
         EditLabel.Width = 24
         EditLabel.Height = 13
         EditLabel.Caption = 'Title:'
         LabelPosition = lpLeft
-        TabOrder = 1
+        TabOrder = 0
       end
       object cmdLineAppTitleEdit: TLabeledEdit
-        Left = 263
-        Top = 46
+        Left = 265
+        Top = 15
         Width = 108
         Height = 21
         EditLabel.Width = 46
         EditLabel.Height = 13
         EditLabel.Caption = 'App Title:'
         LabelPosition = lpLeft
-        TabOrder = 2
+        TabOrder = 1
       end
       object cmdLineDisableUICheckBox: TCheckBox
-        Left = 97
-        Top = 75
+        Left = 390
+        Top = 17
         Width = 97
         Height = 17
         Caption = 'Disable UI'
         Checked = True
         State = cbChecked
-        TabOrder = 3
+        TabOrder = 2
+      end
+      object ArryParamMemo: TMemo
+        Left = 98
+        Top = 145
+        Width = 366
+        Height = 89
+        TabOrder = 7
+      end
+      object codeParamEdit: TLabeledEdit
+        Left = 98
+        Top = 96
+        Width = 547
+        Height = 21
+        Anchors = [akLeft, akTop, akRight]
+        EditLabel.Width = 80
+        EditLabel.Height = 13
+        EditLabel.Caption = 'code parameter:'
+        LabelPosition = lpLeft
+        TabOrder = 6
+      end
+      object Pas_RadioButton: TRadioButton
+        Left = 98
+        Top = 73
+        Width = 108
+        Height = 17
+        Caption = 'pascal code style'
+        Checked = True
+        DoubleBuffered = True
+        ParentDoubleBuffered = False
+        TabOrder = 4
+        TabStop = True
+      end
+      object c_RadioButton: TRadioButton
+        Left = 212
+        Top = 73
+        Width = 90
+        Height = 17
+        Caption = 'C Code Style'
+        DoubleBuffered = True
+        ParentDoubleBuffered = False
+        TabOrder = 5
       end
     end
   end

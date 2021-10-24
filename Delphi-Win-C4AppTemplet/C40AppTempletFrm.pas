@@ -81,6 +81,11 @@ type
     cmdLineTitleEdit: TLabeledEdit;
     cmdLineAppTitleEdit: TLabeledEdit;
     cmdLineDisableUICheckBox: TCheckBox;
+    ArryParamMemo: TMemo;
+    codeParamEdit: TLabeledEdit;
+    ArryParamLabel: TLabel;
+    Pas_RadioButton: TRadioButton;
+    c_RadioButton: TRadioButton;
     procedure netTimerTimer(Sender: TObject);
     procedure UpdateStateTimerTimer(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -127,6 +132,7 @@ type
 var
   C40AppTempletForm: TC40AppTempletForm;
   C40AppParam: U_StringArray = [];
+  C40AppParsingTextStyle: TTextStyle = TTextStyle.tsPascal;
   On_DTC40_PhysicsTunnel_Event: IDTC40_PhysicsTunnel_Event = nil;
   On_DTC40_PhysicsService_Event: IDTC40_PhysicsService_Event = nil;
 
@@ -136,15 +142,15 @@ implementation
 
 {$R *.dfm}
 
+
 procedure InitC40AppParamFromSystemCmdLine;
 var
-  i: integer;
+  i: Integer;
 begin
   SetLength(C40AppParam, ParamCount);
   for i := 1 to ParamCount do
       C40AppParam[i - 1] := ParamStr(i);
 end;
-
 
 type
   TCmd_Net_Info_ = record
@@ -255,7 +261,7 @@ end;
 
 procedure TCommand_Script.Parsing(expression: U_String);
 begin
-  EvaluateExpressionValue(False, tsPascal, expression, opRT);
+  EvaluateExpressionValue(False, C40AppParsingTextStyle, expression, opRT);
 end;
 
 procedure TC40AppTempletForm.netTimerTimer(Sender: TObject);
@@ -434,6 +440,16 @@ begin
 end;
 
 procedure TC40AppTempletForm.GenerateCmdLineButtonClick(Sender: TObject);
+  function conv_(sour: SystemString): SystemString;
+  begin
+    if Pas_RadioButton.Checked then
+        Result := TTextParsing.TranslateTextToPascalDecl(sour)
+    else if c_RadioButton.Checked then
+        Result := TTextParsing.TranslateTextToC_Decl(sour)
+    else
+        Result := sour;
+  end;
+
 var
   hs: THashStringList;
   param: TPascalStringList;
@@ -445,11 +461,11 @@ begin
 
   param := TPascalStringList.Create;
 
-  param.Add(Format('Title(%s)', [TTextParsing.TranslateTextToPascalDecl(cmdLineTitleEdit.Text).Text]));
-  param.Add(Format('AppTitle(%s)', [TTextParsing.TranslateTextToPascalDecl(cmdLineAppTitleEdit.Text).Text]));
-  param.Add(Format('DisableUI(%s)', [TTextParsing.TranslateTextToPascalDecl(umlBoolToStr(cmdLineDisableUICheckBox.Checked)).Text]));
-  param.Add(Format('Timer(%s)', [TTextParsing.TranslateTextToPascalDecl(umlIntToStr(netTimer.Interval)).Text]));
-  param.Add(Format('Password(%s)', [TTextParsing.TranslateTextToPascalDecl(DTC40.DTC40_Password).Text]));
+  param.Add(Format('Title(%s)', [conv_(cmdLineTitleEdit.Text)]));
+  param.Add(Format('AppTitle(%s)', [conv_(cmdLineAppTitleEdit.Text)]));
+  param.Add(Format('DisableUI(%s)', [conv_(umlBoolToStr(cmdLineDisableUICheckBox.Checked))]));
+  param.Add(Format('Timer(%s)', [conv_(umlIntToStr(netTimer.Interval))]));
+  param.Add(Format('Password(%s)', [conv_(DTC40.DTC40_Password)]));
 
   hs.ProgressP(procedure(Sender: THashStringList; Name_: PSystemString; const V: SystemString)
     begin
@@ -458,24 +474,22 @@ begin
     end);
 
   if (ServIPEdit.Text <> '') and (ServPortEdit.Text <> '') and (ServiceDependEdit.Text <> '') then
-      param.Add(Format('Service(%s,%s,%s)', [TTextParsing.TranslateTextToPascalDecl(ServIPEdit.Text).Text,
-      TTextParsing.TranslateTextToPascalDecl(ServPortEdit.Text).Text,
-      TTextParsing.TranslateTextToPascalDecl(ServiceDependEdit.Text).Text]));
+      param.Add(Format('Service(%s,%s,%s)', [conv_(ServIPEdit.Text), conv_(ServPortEdit.Text), conv_(ServiceDependEdit.Text)]));
 
   if (JoinHostEdit.Text <> '') and (JoinPortEdit.Text <> '') and (DependEdit.Text <> '') then
-      param.Add(Format('Tunnel(%s,%s,%s)', [TTextParsing.TranslateTextToPascalDecl(JoinHostEdit.Text).Text,
-      TTextParsing.TranslateTextToPascalDecl(JoinPortEdit.Text).Text,
-      TTextParsing.TranslateTextToPascalDecl(DependEdit.Text).Text]));
+      param.Add(Format('Tunnel(%s,%s,%s)', [conv_(JoinHostEdit.Text), conv_(JoinPortEdit.Text), conv_(DependEdit.Text)]));
 
-  final_param := '"';
+  final_param := '';
+  ArryParamMemo.Clear;
   for i := 0 to param.Count - 1 do
     begin
       if i > 0 then
           final_param.Append(',');
       final_param.Append(param[i]);
+      ArryParamMemo.Lines.Add(conv_(param[i]) + if_(i < param.Count - 1, ',', ''));
     end;
-  final_param.Append('"');
-  cmdLineParamEdit.Text := final_param;
+  cmdLineParamEdit.Text := '"' + final_param + '"';
+  codeParamEdit.Text := conv_(final_param);
 
   disposeObject(hs);
   disposeObject(param);

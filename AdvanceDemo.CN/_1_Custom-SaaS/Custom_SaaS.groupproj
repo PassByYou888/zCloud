@@ -1,0 +1,108 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{BCEF2D2B-C790-47F5-BD24-FF31387CF3B0}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="_1_Log_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_2_FS_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_3_Var_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_4_UserDB_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_5_MyVM_1_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_5_MyVM_2_Service.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="_5_MyVM_3_Service.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="_1_Log_Service">
+        <MSBuild Projects="_1_Log_Service.dproj"/>
+    </Target>
+    <Target Name="_1_Log_Service:Clean">
+        <MSBuild Projects="_1_Log_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_1_Log_Service:Make">
+        <MSBuild Projects="_1_Log_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_2_FS_Service">
+        <MSBuild Projects="_2_FS_Service.dproj"/>
+    </Target>
+    <Target Name="_2_FS_Service:Clean">
+        <MSBuild Projects="_2_FS_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_2_FS_Service:Make">
+        <MSBuild Projects="_2_FS_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_3_Var_Service">
+        <MSBuild Projects="_3_Var_Service.dproj"/>
+    </Target>
+    <Target Name="_3_Var_Service:Clean">
+        <MSBuild Projects="_3_Var_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_3_Var_Service:Make">
+        <MSBuild Projects="_3_Var_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_4_UserDB_Service">
+        <MSBuild Projects="_4_UserDB_Service.dproj"/>
+    </Target>
+    <Target Name="_4_UserDB_Service:Clean">
+        <MSBuild Projects="_4_UserDB_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_4_UserDB_Service:Make">
+        <MSBuild Projects="_4_UserDB_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_5_MyVM_1_Service">
+        <MSBuild Projects="_5_MyVM_1_Service.dproj"/>
+    </Target>
+    <Target Name="_5_MyVM_1_Service:Clean">
+        <MSBuild Projects="_5_MyVM_1_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_5_MyVM_1_Service:Make">
+        <MSBuild Projects="_5_MyVM_1_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_5_MyVM_2_Service">
+        <MSBuild Projects="_5_MyVM_2_Service.dproj"/>
+    </Target>
+    <Target Name="_5_MyVM_2_Service:Clean">
+        <MSBuild Projects="_5_MyVM_2_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_5_MyVM_2_Service:Make">
+        <MSBuild Projects="_5_MyVM_2_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="_5_MyVM_3_Service">
+        <MSBuild Projects="_5_MyVM_3_Service.dproj"/>
+    </Target>
+    <Target Name="_5_MyVM_3_Service:Clean">
+        <MSBuild Projects="_5_MyVM_3_Service.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="_5_MyVM_3_Service:Make">
+        <MSBuild Projects="_5_MyVM_3_Service.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="_1_Log_Service;_2_FS_Service;_3_Var_Service;_4_UserDB_Service;_5_MyVM_1_Service;_5_MyVM_2_Service;_5_MyVM_3_Service"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="_1_Log_Service:Clean;_2_FS_Service:Clean;_3_Var_Service:Clean;_4_UserDB_Service:Clean;_5_MyVM_1_Service:Clean;_5_MyVM_2_Service:Clean;_5_MyVM_3_Service:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="_1_Log_Service:Make;_2_FS_Service:Make;_3_Var_Service:Make;_4_UserDB_Service:Make;_5_MyVM_1_Service:Make;_5_MyVM_2_Service:Make;_5_MyVM_3_Service:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

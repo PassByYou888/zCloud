@@ -505,12 +505,7 @@ end;
 procedure TC40AppTempletForm.DoStatus_backcall(Text_: SystemString; const ID: Integer);
 begin
   if logMemo.Lines.Count > 2000 then
-    begin
-      logMemo.Lines.BeginUpdate;
-      while logMemo.Lines.Count > 500 do
-          logMemo.Lines.Delete(0);
-      logMemo.Lines.EndUpdate;
-    end;
+    logMemo.Lines.Clear;
   logMemo.Lines.Add(DateTimeToStr(now) + ' ' + Text_);
 end;
 

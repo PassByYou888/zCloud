@@ -498,12 +498,7 @@ end;
 procedure TC40AppTempletForm.DoStatus_backcall(Text_: SystemString; const ID: Integer);
 begin
   if logMemo.Lines.Count > 2000 then
-    begin
-      logMemo.Lines.BeginUpdate;
-      while logMemo.Lines.Count > 500 do
-          logMemo.Lines.Delete(0);
-      logMemo.Lines.EndUpdate;
-    end;
+      logMemo.Clear;
   logMemo.Lines.Add(DateTimeToStr(now) + ' ' + Text_);
 end;
 
@@ -514,7 +509,7 @@ var
 begin
   if IsCommandLineWorkEnvir then
       exit;
-  fn := umlChangeFileExt(Application.ExeName, '.ini');
+  fn := umlChangeFileExt(Application.ExeName, '.conf');
   if not umlFileExists(fn) then
       exit;
   te := THashTextEngine.Create;
@@ -541,7 +536,7 @@ var
 begin
   if IsCommandLineWorkEnvir then
       exit;
-  fn := umlChangeFileExt(Application.ExeName, '.ini');
+  fn := umlChangeFileExt(Application.ExeName, '.conf');
 
   te := THashTextEngine.Create;
   ApplyOpt;

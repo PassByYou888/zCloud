@@ -45,7 +45,7 @@ end;
 begin
   SetConsoleCtrlHandler(@ConsoleProc, True);
 
-  DTC40.DTC40_QuietMode := False;
+  DTC40.DTC40_QuietMode := True;
   DTC40.DTC40_PhysicsTunnelPool.GetOrCreatePhysicsTunnel(Internet_DP_Addr_, Internet_DP_Port_, 'DP|FS', nil);
 
   // FS也是一种主要基础设施，主要用于存放大型数据，例如图片，列表，配置数据等等
@@ -54,21 +54,23 @@ begin
     var
       tmp: TMS64;
     begin
+      GetMyFS_Client.FS_RemoveFile('test');
+
       tmp := TMS64.Create;
       tmp.Size := 1024 * 1024;
       MT19937Rand32(MaxInt, tmp.Memory, tmp.Size div 4);
       DoStatus('origin md5: ' + umlStreamMD5String(tmp));
-      GetMyFS_Client.FS_RemoveFile('test', False);
       // 往服务器仍文件，这个文件的token会自动覆盖已有的，覆盖在存储空间使用擦写机制处理
       // postfile的api，会构建一个新的p2pVM隧道，永不排队
       // p2pVM并发隧道传输文件，如果两个同名文件同时并行传输，服务器会依据IO触发完成传输的先后顺序擦写操作，网速慢的覆盖网速快的
-      GetMyFS_Client.FS_PostFile_P('test', tmp, True, procedure(Sender: TDTC40_FS_Client; Token: U_String)
+      GetMyFS_Client.FS_PostFile_P('test', tmp, True, procedure(Sender: TDTC40_FS_Client; info_: U_String)
         begin
+          DoStatus('remote md5:' + info_);
           // 不使用cache
           // 当post完成后，我们将文件get下来，get文件也会构建新的p2pVM隧道并发传输，不会发生排队等
           GetMyFS_Client.FS_GetFile_P(
-            True,
-            'test', False,
+            False,
+            'test',
             procedure(Sender: TDTC40_FS_Client; stream: TMS64; Token: U_String; Successed: Boolean)
             begin
               if Successed then
@@ -78,7 +80,7 @@ begin
               // 当post完成后，我们将文件get下来，get文件也会构建新的p2pVM隧道并发传输，不会发生排队等
               GetMyFS_Client.FS_GetFile_P(
                 True,
-                'test', False,
+                'test',
                 procedure(Sender2: TDTC40_FS_Client; stream2: TMS64; Token2: U_String; Successed2: Boolean)
                 begin
                   if Successed2 then

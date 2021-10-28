@@ -201,14 +201,14 @@ procedure TC4_VAR_Tech_Demo_Cli_Form.closeNMButtonClick(Sender: TObject);
 begin
   if VarClient = nil then
       exit;
-  VarClient.NM_CloseAll();
+  VarClient.NM_CloseAll(False);
 end;
 
 procedure TC4_VAR_Tech_Demo_Cli_Form.removeNMButtonClick(Sender: TObject);
 begin
   if VarClient = nil then
       exit;
-  VarClient.NM_Remove(NMEdit.Text);
+  VarClient.NM_Remove(NMEdit.Text, False);
 end;
 
 procedure TC4_VAR_Tech_Demo_Cli_Form.runScriptFromRemoteButtonClick(Sender: TObject);

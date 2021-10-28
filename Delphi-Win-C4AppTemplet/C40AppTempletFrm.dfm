@@ -26,7 +26,9 @@ object C40AppTempletForm: TC40AppTempletForm
     Cursor = crVSplit
     Align = alBottom
     AutoSnap = False
+    Color = clBlue
     MinSize = 120
+    ParentColor = False
     ResizeStyle = rsUpdate
     ExplicitTop = 229
     ExplicitWidth = 791
@@ -65,7 +67,9 @@ object C40AppTempletForm: TC40AppTempletForm
         Cursor = crVSplit
         Align = alTop
         AutoSnap = False
+        Color = clBlue
         MinSize = 100
+        ParentColor = False
         ResizeStyle = rsUpdate
         ExplicitTop = 226
         ExplicitWidth = 841
@@ -289,6 +293,7 @@ object C40AppTempletForm: TC40AppTempletForm
           TabOrder = 1
           ViewStyle = vsReport
           OnChange = ServiceListViewChange
+          ExplicitTop = 32
         end
       end
     end
@@ -559,7 +564,7 @@ object C40AppTempletForm: TC40AppTempletForm
       end
       object GenerateCmdLineButton: TButton
         Left = 98
-        Top = 250
+        Top = 268
         Width = 85
         Height = 25
         Caption = 'Generate'
@@ -601,9 +606,11 @@ object C40AppTempletForm: TC40AppTempletForm
       object ArryParamMemo: TMemo
         Left = 98
         Top = 145
-        Width = 366
-        Height = 89
+        Width = 547
+        Height = 117
+        ScrollBars = ssBoth
         TabOrder = 7
+        WordWrap = False
       end
       object codeParamEdit: TLabeledEdit
         Left = 98

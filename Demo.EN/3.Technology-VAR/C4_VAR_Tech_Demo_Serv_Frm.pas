@@ -33,7 +33,7 @@ type
     procedure UpdateStateTimerTimer(Sender: TObject);
   private
     procedure DoStatus_backcall(Text_: SystemString; const ID: Integer);
-    procedure Do_NMPool_Remove(NMPool_: TDTC40_VarService_NM_Pool);
+    procedure Do_NMPool_Remove(Sender: TDTC40_Var_Service; NMPool_: TDTC40_VarService_NM_Pool);
   public
   end;
 
@@ -168,7 +168,7 @@ begin
   Memo.Lines.Add(Text_);
 end;
 
-procedure TC4_VAR_Tech_Demo_Serv_Form.Do_NMPool_Remove(NMPool_: TDTC40_VarService_NM_Pool);
+procedure TC4_VAR_Tech_Demo_Serv_Form.Do_NMPool_Remove(Sender: TDTC40_Var_Service; NMPool_: TDTC40_VarService_NM_Pool);
 var
   RN: TTreeNode;
 begin

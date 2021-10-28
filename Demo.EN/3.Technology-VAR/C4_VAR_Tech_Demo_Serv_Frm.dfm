@@ -1,4 +1,4 @@
-﻿object C4_VAR_Tech_Demo_Serv_Form: TC4_VAR_Tech_Demo_Serv_Form
+object C4_VAR_Tech_Demo_Serv_Form: TC4_VAR_Tech_Demo_Serv_Form
   Left = 0
   Top = 0
   Caption = 'C4_VAR_Tech_Demo_Serv_Form'
@@ -119,7 +119,9 @@
         Lines.Strings = (
           'Var service is the core system supported by VM operation'
           'Var service can only be created in build mode'
-          'Var service has the ability to read and write secure data. After creation, it will restore the previous variable state'
+          
+            'Var service has the ability to read and write secure data. After' +
+            ' creation, it will restore the previous variable state'
           'Var service saves the status every once in a while'
           ''
           'by.qq600585')

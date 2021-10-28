@@ -1,4 +1,4 @@
-﻿object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
+object C4_VAR_Tech_Demo_Cli_Form: TC4_VAR_Tech_Demo_Cli_Form
   Left = 0
   Top = 0
   Caption = 'C4_VAR_Tech_Demo_Cli_Form'
@@ -130,8 +130,6 @@
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 228
-      ExplicitTop = -3
       object ScriptMemo: TMemo
         Left = 0
         Top = 34
@@ -139,13 +137,19 @@
         Height = 325
         Align = alClient
         Lines.Strings = (
-          '//The VaR service script can be executed locally and then synchronized to the server'
-          '//Var can also be sent to remote execution, and the server will synchronize to the local'
+          
+            '//The VaR service script can be executed locally and then synchr' +
+            'onized to the server'
+          
+            '//Var can also be sent to remote execution, and the server will ' +
+            'synchronize to the local'
           '//The following scripts are executed at both ends'
           '//Create variable: set (variable name, value)'
           '//Get variable: variable name (), variable name + variable name'
           '//Assigned variable: variable name (value)'
-          '//The default script syntax is Pascal style or c style. The script is driven by zexpression engine'
+          
+            '//The default script syntax is Pascal style or c style. The scri' +
+            'pt is driven by zexpression engine'
           '//Var needs to be open before it has monitoring effect'
           '// by.qq600585'
           ''

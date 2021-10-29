@@ -98,7 +98,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\..\Delphi-Win-C4AppTemplet\C40AppTempletFrm.pas">
+        <DCCReference Include="..\..\Delphi-C4AppTemplet\C40AppTempletFrm.pas">
             <Form>C40AppTempletForm</Form>
         </DCCReference>
         <DCCReference Include="MyService.pas"/>

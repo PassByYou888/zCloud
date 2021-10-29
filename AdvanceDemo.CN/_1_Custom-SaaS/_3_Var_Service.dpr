@@ -6,7 +6,7 @@ uses
   PascalStrings,
   DTC40,
   TextParsing,
-  C40AppTempletFrm in '..\..\Delphi-Win-C4AppTemplet\C40AppTempletFrm.pas' {C40AppTempletForm} ,
+  C40AppTempletFrm in '..\..\Delphi-C4AppTemplet\C40AppTempletFrm.pas' {C40AppTempletForm} ,
   MyService in 'MyService.pas';
 
 {$R *.res}

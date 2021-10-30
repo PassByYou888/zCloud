@@ -102,15 +102,6 @@
             <Form>DTC40_UserDB_AdminToolForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="DTC40_UserDB_AdminLargeScaleRegFrm.pas">
-            <Form>DTC40_UserDB_AdminLargeScaleRegForm</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <RcItem Include="Dict.OX">
-            <ContainerId>ResourceItem</ContainerId>
-            <ResourceType>RCDATA</ResourceType>
-            <ResourceId>Dict</ResourceId>
-        </RcItem>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -136,12 +127,6 @@
                 <DeployFile LocalName="Win32\Debug\DTC40_UserDB_AdminTool.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>DTC40_UserDB_AdminTool.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Dict.OX" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

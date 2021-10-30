@@ -26,7 +26,7 @@ uses
   FileIndexPackage, FilePackage, ItemStream, ObjectDataHashField, ObjectDataHashItem,
   ZDB2, ZDB2_Core, ZDB2_DFE, ZDB2_HS, ZDB2_HV, ZDB2_Json, ZDB2_MS64, ZDB2_NM, ZDB2_TE, ZDB2_FileEncoder,
   DTC40, DTC40_UserDB, DTC40_Var, DTC40_FS, DTC40_RandSeed, DTC40_Log_DB,
-  PhysicsIO, MediaCenter;
+  PhysicsIO;
 
 type
   TDTC40_UserDB_AdminToolForm = class(TForm, IDTC40_PhysicsTunnel_Event)
@@ -54,7 +54,6 @@ type
     Action_downloadtoDir: TAction;
     uploadJson_OpenDialog: TOpenDialog;
     Action_UploadJson: TAction;
-    Action_LargeScaleRegistrationTool: TAction;
     NumEdit: TLabeledEdit;
     Action_Kick: TAction;
     Action_Enabled: TAction;
@@ -79,7 +78,6 @@ type
     Downloadselectedtodirectory2: TMenuItem;
     UploadjsontoUserDB2: TMenuItem;
     N4: TMenuItem;
-    LargeScaleRegistrationTool2: TMenuItem;
     Action_UserDB_State: TAction;
     UserDBServiceState1: TMenuItem;
     UserDBServiceState2: TMenuItem;
@@ -92,7 +90,6 @@ type
     procedure Action_RemoveExecute(Sender: TObject);
     procedure Action_UploadJsonExecute(Sender: TObject);
     procedure Action_UserDB_StateExecute(Sender: TObject);
-    procedure Action_LargeScaleRegistrationToolExecute(Sender: TObject);
     procedure Action_exitExecute(Sender: TObject);
     procedure BuildDependNetButtonClick(Sender: TObject);
     procedure netTimerTimer(Sender: TObject);
@@ -134,9 +131,6 @@ var
 implementation
 
 {$R *.dfm}
-
-
-uses DTC40_UserDB_AdminLargeScaleRegFrm;
 
 type
   TUsr_Item = class(TListItem)
@@ -272,12 +266,6 @@ begin
   if CurrentClient = nil then
       exit;
   CurrentClient.Usr_OnlineNumM(Do_Usr_OnlineNum);
-end;
-
-procedure TDTC40_UserDB_AdminToolForm.Action_LargeScaleRegistrationToolExecute(Sender: TObject);
-begin
-  DTC40_UserDB_AdminLargeScaleRegForm.Show;
-  DTC40_UserDB_AdminLargeScaleRegForm.RefreshCorpus;
 end;
 
 procedure TDTC40_UserDB_AdminToolForm.Action_exitExecute(Sender: TObject);
@@ -538,7 +526,6 @@ begin
   inherited Create(AOwner);
   DTC40_QuietMode := False;
   AddDoStatusHook(self, DoStatus_backcall);
-  InitGlobalMedia([gmtDict]);
 
   DTC4PasswdEdit.Text := DTC40.DTC40_Password;
   ReadConfig;

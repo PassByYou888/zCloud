@@ -299,10 +299,6 @@ object DTC40_UserDB_AdminToolForm: TDTC40_UserDB_AdminToolForm
       Caption = 'Upload json to UserDB.'
       OnExecute = Action_UploadJsonExecute
     end
-    object Action_LargeScaleRegistrationTool: TAction
-      Caption = 'Large-Scale Registration Tool.'
-      OnExecute = Action_LargeScaleRegistrationToolExecute
-    end
     object Action_Kick: TAction
       Caption = 'Kick'
       OnExecute = Action_KickExecute
@@ -395,9 +391,6 @@ object DTC40_UserDB_AdminToolForm: TDTC40_UserDB_AdminToolForm
       end
       object UserDBServiceState1: TMenuItem
         Action = Action_UserDB_State
-      end
-      object LargeScaleRegistrationTool2: TMenuItem
-        Action = Action_LargeScaleRegistrationTool
       end
       object Exit1: TMenuItem
         Action = Action_exit

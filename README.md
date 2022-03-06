@@ -2,6 +2,8 @@
 
 **zCloud** 是去中心化的SAAS后台框架，SAAS后台就是zCloud
 
+**注意：ZCloud以后不再维护(见ZNet中的说明)，更新请转ZNet（自带ZS升级程序，可一键升级ZS+ZCloud到ZNet）** https://github.com/PassByYou888/ZNet
+
 ### 关于zCloud
 
 - **zCloud** 是基于Object Pascal语言的**SAAS**框架,通信库使用 [ZServer4D](https://github.com/PassByYou888/ZServer4D)
